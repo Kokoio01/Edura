@@ -28,7 +28,7 @@ export async function ensureAdminUser() {
     const existing = await db.select().from(user).where(eq(user.email, email));
 
     if (existing.length === 0) {
-        console.log("⚡ Kein Admin gefunden – neuer wird erstellt...");
+        console.log("⚡Kein Admin gefunden – neuer wird erstellt...");
 
         await auth.api.signUpEmail({
             body: {

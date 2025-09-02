@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Sidebar,
     SidebarContent,
@@ -7,6 +9,9 @@ import {
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem
 } from "@/components/ui/sidebar";
 import {Home} from "lucide-react";
+import {SidebarUser} from "@/components/sidebar/sidebar-user";
+import {SidebarSubjects} from "@/components/sidebar/sidebar-subject";
+import {useSession} from "@/lib/auth-client";
 
 const items = [
     {
@@ -17,6 +22,8 @@ const items = [
 ]
 
 export function AppSidebar() {
+    const session = useSession()
+
     return (
         <Sidebar variant="inset">
             <SidebarHeader/>
@@ -38,8 +45,11 @@ export function AppSidebar() {
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
+                {session.data ? <SidebarSubjects/> : null}
             </SidebarContent>
-            <SidebarFooter/>
+            <SidebarFooter>
+                <SidebarUser/>
+            </SidebarFooter>
         </Sidebar>
     )
 }
