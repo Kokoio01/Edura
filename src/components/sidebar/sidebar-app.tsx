@@ -8,21 +8,28 @@ import {
     SidebarGroupLabel,
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem
 } from "@/components/ui/sidebar";
-import {Home} from "lucide-react";
+import {BookIcon, Home} from "lucide-react";
 import {SidebarUser} from "@/components/sidebar/sidebar-user";
 import {SidebarSubjects} from "@/components/sidebar/sidebar-subject";
 import {useSession} from "@/lib/auth-client";
+import {useRouter} from "next/navigation";
 
 const items = [
     {
         title: "Home",
         url: "/",
         icon: Home
+    },
+    {
+        title: "Subjects",
+        url: "/subject",
+        icon: BookIcon
     }
 ]
 
-export function AppSidebar() {
+export function SidebarApp() {
     const session = useSession()
+    const router = useRouter();
 
     return (
         <Sidebar variant="inset">
@@ -35,7 +42,7 @@ export function AppSidebar() {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <a onClick={() => router.push(item.url)}>
                                             <item.icon/>
                                             <span>{item.title}</span>
                                         </a>

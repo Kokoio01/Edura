@@ -9,14 +9,11 @@ import {
     SidebarMenuItem,
 } from "../ui/sidebar";
 import { useSubjects } from "@/hooks/use-subjects";
-import { useState } from "react";
 import Link from "next/link";
 import {SubjectCreate} from "@/components/dialogs/subject-create";
 
 export function SidebarSubjects() {
     const { subjects, error } = useSubjects();
-
-    const [showAddForm, setShowAddForm] = useState(false);
 
     // Show error state
     if (error) {
