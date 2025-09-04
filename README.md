@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="http://localhost:3000/logo.png" width="200" />
+  <img src="https://raw.githubusercontent.com/Kokoio01/Edura/e5599a8c294d61454895228ac6f86b833bf1674a/.github/pictures/logo.png" width="200" />
 </p>
 
 # Edura
