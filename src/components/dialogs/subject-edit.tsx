@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import ColorSelector from "../ui/color-selector";
 import { trpc } from "@/lib/trpc";
+import {useTranslations} from "next-intl";
 
 interface SubjectEditProps {
     subjectId: string;
@@ -20,6 +21,7 @@ export function SubjectEdit({ subjectId }: SubjectEditProps) {
     const [name, setName] = React.useState(s?.name)
     const [color, setColor] = React.useState(s?.color)
     const utils = trpc.useUtils();
+    const t = useTranslations("SubjectEdit");
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,28 +36,28 @@ export function SubjectEdit({ subjectId }: SubjectEditProps) {
         return (
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <a>Bearbeiten</a>
+                    <a>{t("trigger_edit")}</a>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Fach bearbeiten</DialogTitle>
+                        <DialogTitle>{t("title")}</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={onSubmit}>
                         <div className="grid gap-4">
                             <div className="grid gap-3">
-                                <Label htmlFor="name-1">Name</Label>
+                                <Label htmlFor="name-1">{t("name_label")}</Label>
                                 <Input id="name-1" name="name" onChange={(e) => setName(e.target.value)} defaultValue={s.name}/>
                             </div>
                             <div className="grid gap-3">
-                                <Label htmlFor="color-1">Frabe</Label>
+                                <Label htmlFor="color-1">{t("color_label")}</Label>
                                 <ColorSelector onChange={setColor} initialColor={s.color}/>
                             </div>
                         </div>
                         <DialogFooter className="gap-2 flex flex-row pt-3">
                             <DialogClose asChild>
-                                <Button variant="outline">Abbrechen</Button>
+                                <Button variant="outline">{t("cancel")}</Button>
                             </DialogClose>
-                            <Button type="submit">Speichern</Button>
+                            <Button type="submit">{t("save")}</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>
@@ -66,15 +68,15 @@ export function SubjectEdit({ subjectId }: SubjectEditProps) {
             <Dialog>
                 <form>
                     <DialogTrigger asChild>
-                        <a>Bearbeiten</a>
+                        <a>{t("trigger_edit")}</a>
                     </DialogTrigger>
                     <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle>404 - Fach nicht gefunden</DialogTitle>
+                            <DialogTitle>{t("not_found")}</DialogTitle>
                         </DialogHeader>
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline">Cancel</Button>
+                                <Button variant="outline">{t("cancel")}</Button>
                             </DialogClose>
                         </DialogFooter>
                     </DialogContent>

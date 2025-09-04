@@ -15,11 +15,13 @@ import {FormEvent, useEffect, useState} from "react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
+import {useTranslations} from "next-intl";
 
 export function LoginForm({
                               className,
                               ...props
                           }: React.ComponentProps<"div">) {
+    const t = useTranslations("LoginForm");
     const router = useRouter();
     const searchParams = useSearchParams();
     const [redirectTo, setRedirectTo] = useState("/dashboard");
@@ -66,9 +68,9 @@ export function LoginForm({
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
                 <CardHeader className="text-center">
-                    <CardTitle className="text-xl">Welcome back</CardTitle>
+                    <CardTitle className="text-xl">{t("title")}</CardTitle>
                     <CardDescription>
-                        Login with your Account
+                        {t("subtitle")}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -83,23 +85,23 @@ export function LoginForm({
                                     </div>
                                 ) : null}
                                 <div className="grid gap-3">
-                                    <Label htmlFor="email">Email</Label>
+                                    <Label htmlFor="email">{t("email")}</Label>
                                     <Input
                                         id="email"
                                         type="email"
-                                        placeholder="m@example.com"
+                                        placeholder={t("email_placeholder")}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
                                 <div className="grid gap-3">
                                     <div className="flex items-center">
-                                        <Label htmlFor="password">Password</Label>
+                                        <Label htmlFor="password">{t("password")}</Label>
                                         <a
                                             href="#"
                                             className="ml-auto text-sm underline-offset-4 hover:underline"
                                         >
-                                            Forgot your password?
+                                            {t("forgot_password")}
                                         </a>
                                     </div>
                                     <Input id="password" type="password" required
@@ -112,17 +114,17 @@ export function LoginForm({
                                                 setRememberMe(!RememberMe);
                                             }}
                                         />
-                                        <Label htmlFor="remberme">Remember Me</Label>
+                                        <Label htmlFor="remberme">{t("remember_me")}</Label>
                                     </div>
                                 </div>
                                 <Button type="submit" className="w-full" disabled={loading}>
-                                    Login
+                                    {t("login")}
                                 </Button>
                             </div>
                             <div className="text-center text-sm">
-                                Don&apos;t have an account?{" "}
+                                {t("no_account")} {" "}
                                 <a href="#" className="underline underline-offset-4">
-                                    Sign up
+                                    {t("sign_up")}
                                 </a>
                             </div>
                         </div>
@@ -131,8 +133,8 @@ export function LoginForm({
             </Card>
             <div
                 className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-                By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-                and <a href="#">Privacy Policy</a>.
+                {t("terms_prefix")} <a href="#">{t("terms_tos")}</a>{" "}
+                {t("terms_and")} <a href="#">{t("terms_pp")}</a>.
             </div>
         </div>
     )

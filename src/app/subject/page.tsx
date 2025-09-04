@@ -22,6 +22,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { SubjectEdit } from "@/components/dialogs/subject-edit";
+import {useTranslations} from "next-intl";
 
 export default function SubjectsPage() {
     const router = useRouter();
@@ -31,9 +32,10 @@ export default function SubjectsPage() {
         error,
         deleteSubject,
     } = useSubjects();
+    const t = useTranslations("SubjectsPage");
 
     const onDelete = (subjectId: string) => {
-        if (confirm("Dieses Fach wirklich löschen?")) {
+        if (confirm(t("confirm_delete"))) {
             deleteSubject({ subjectId });
         }
     };
@@ -41,9 +43,9 @@ export default function SubjectsPage() {
     if (error) {
         return (
             <div className="p-6">
-                <p className="text-red-500">Fehler beim Laden der Fächer.</p>
+                <p className="text-red-500">{t("load_error")}</p>
                 <Button className="mt-4" onClick={() => router.refresh()}>
-                    Erneut versuchen
+                    {t("retry")}
                 </Button>
             </div>
         );
@@ -52,7 +54,7 @@ export default function SubjectsPage() {
     return (
         <div className="flex min-h-screen w-full flex-col p-6">
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-2xl font-semibold">Fächer</h1>
+                <h1 className="text-2xl font-semibold">{t("title")}</h1>
                 {/* Placeholder for future actions (e.g., create subject) */}
             </div>
 
@@ -69,7 +71,7 @@ export default function SubjectsPage() {
                     ))}
                 </div>
             ) : subjects.length === 0 ? (
-                <div className="text-muted-foreground">Keine Fächer vorhanden.</div>
+                <div className="text-muted-foreground">{t("empty")}</div>
             ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {subjects.map((s) => (
@@ -91,7 +93,7 @@ export default function SubjectsPage() {
                                                     variant="ghost"
                                                     size="icon"
                                                     onClick={(e) => e.stopPropagation()}
-                                                    aria-label="Aktionen"
+                                                    aria-label={t("actions")}
                                                 >
                                                     <MoreVertical className="size-4" />
                                                 </Button>
@@ -104,7 +106,7 @@ export default function SubjectsPage() {
                                                     onClick={() => router.push(`/subject/${s.id}`)}
                                                     key="open"
                                                 >
-                                                    Öffnen
+                                                    {t("open")}
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                                     <SubjectEdit subjectId={s.id}/>
@@ -115,7 +117,7 @@ export default function SubjectsPage() {
                                                     variant="destructive"
                                                     onClick={() => onDelete(s.id)}
                                                 >
-                                                    Löschen
+                                                    {t("delete")}
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>

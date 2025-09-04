@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import React from "react";
 import {useSubjects} from "@/hooks/use-subjects";
+import {useTranslations} from "next-intl";
 
 function isNanoId(segment: string) {
     return /^[A-Za-z0-9_-]{21}$/.test(segment);
@@ -25,6 +26,7 @@ function capitalize(str: string) {
 export function SiteHeader() {
     const router = useRouter();
     const {subjects} = useSubjects();
+    const t = useTranslations("Breadcrumb");
     const pathname = usePathname()
     let segments:string[] = []
     if (pathname !== "/") {
@@ -44,9 +46,11 @@ export function SiteHeader() {
                 <Breadcrumb>
                     <BreadcrumbList>
                         {segments.map((segment, index) => {
-                            const label = isNanoId(segment)
-                                ? subjects.find(subject => subject.id === segment)?.name
-                                : capitalize(segment);
+                            const label = index === 0
+                                ? t("home")
+                                : isNanoId(segment)
+                                    ? subjects.find(subject => subject.id === segment)?.name
+                                    : capitalize(segment);
 
                             const href =
                                 index === 0

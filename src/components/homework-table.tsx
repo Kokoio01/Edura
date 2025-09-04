@@ -38,6 +38,7 @@ import {
 } from "@/components/ui/table";
 import { trpc } from "@/lib/trpc";
 import { HomeworkCreate } from "./dialogs/homework-create";
+import {useTranslations} from "next-intl";
 
 export type HomeworkRow = {
     id: string;
@@ -54,22 +55,23 @@ function useHomeworkData(completed: boolean | undefined, subjectId?: string) {
     const utils = trpc.useUtils();
 
     const updateMutation = trpc.homework.update.useMutation({
-        onSuccess: () => utils.homework.getAll.invalidate(queryInput),
+        onSuccess: () => utils.homework.getAll.invalidate(),
     });
 
     const deleteMutation = trpc.homework.delete.useMutation({
-        onSuccess: () => utils.homework.getAll.invalidate(queryInput),
+        onSuccess: () => utils.homework.getAll.invalidate(),
     });
 
     const createMutation = trpc.homework.create.useMutation({
-        onSuccess: () => utils.homework.getAll.invalidate(queryInput),
+        onSuccess: () => utils.homework.getAll.invalidate(),
     });
 
     return { query, updateMutation, deleteMutation, createMutation };
 }
 
 export function HomeworkTable({ subjectId }: { subjectId?: string }) {
-    const [statusFilter, setStatusFilter] = React.useState<"all" | "pending" | "completed">("all");
+    const t = useTranslations("HomeworkTable");
+    const [statusFilter, setStatusFilter] = React.useState<"all" | "pending" | "completed">("pending");
     const completedParam = statusFilter === "all" ? undefined : statusFilter === "completed";
 
     const { query, updateMutation, deleteMutation } = useHomeworkData(completedParam, subjectId);
@@ -82,26 +84,26 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
 
     const update = React.useCallback(
         (vars: Parameters<typeof updateMutation.mutate>[0]) => updateMutation.mutate(vars),
-        [updateMutation.mutate]
+        [updateMutation]
     );
 
     const del = React.useCallback(
         (vars: Parameters<typeof deleteMutation.mutate>[0]) => deleteMutation.mutate(vars),
-        [deleteMutation.mutate]
+        [deleteMutation]
     );
 
     const columns = React.useMemo<ColumnDef<HomeworkRow>[]>(
         () => [
             {
                 accessorKey: "completed",
-                header: "Fertig",
+                header: t("completed"),
                 cell: ({ row }) => (
                     <Checkbox
                         checked={row.original.completed}
                         onCheckedChange={(value) =>
                             update({ homeworkId: row.original.id, completed: !!value })
                         }
-                        aria-label="Toggle complete"
+                        aria-label={t("toggle_complete_aria")}
                     />
                 ),
             },
@@ -112,7 +114,7 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Title
+                        {t("title")}
                         <ArrowUpDown />
                     </Button>
                 ),
@@ -125,7 +127,7 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
-                        Due
+                        {t("due")}
                         <ArrowUpDown />
                     </Button>
                 ),
@@ -138,23 +140,23 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
+                                <span className="sr-only">{t("open_menu_sr")}</span>
                                 <MoreHorizontal />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
                             <DropdownMenuItem onClick={() => navigator.clipboard.writeText(row.original.id)}>
-                                Copy ID
+                                {t("copy_id")}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => del({ homeworkId: row.original.id })}>Delete</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => del({ homeworkId: row.original.id })}>{t("delete")}</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ),
             },
         ],
-        [update, del]
+        [update, del, t]
     );
 
     const table = useReactTable({
@@ -181,7 +183,7 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
 
                 <div className="flex items-center">
                     <Input
-                        placeholder="Filter title..."
+                        placeholder={t("filter_title_placeholder")}
                         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
                         onChange={(e) => table.getColumn("title")?.setFilterValue(e.target.value)}
                         className="max-w-sm"
@@ -197,15 +199,15 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className="w-56">
-                                <DropdownMenuLabel>Aufgaben Status</DropdownMenuLabel>
+                                <DropdownMenuLabel>{t("status_label")}</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuRadioGroup
                                     value={statusFilter}
                                     onValueChange={(v) => setStatusFilter(v as "all" | "pending" | "completed")}
                                 >
-                                    <DropdownMenuRadioItem value="all">Alle Aufgaben</DropdownMenuRadioItem>
-                                    <DropdownMenuRadioItem value="pending">Noch zu tun</DropdownMenuRadioItem>
-                                    <DropdownMenuRadioItem value="completed">Erledigte Aufgaben</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="all">{t("status_all")}</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="pending">{t("status_pending")}</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="completed">{t("status_completed")}</DropdownMenuRadioItem>
                                 </DropdownMenuRadioGroup>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -240,7 +242,7 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    {query.isLoading ? "Loading..." : "Nichts da :)"}
+                                    {query.isLoading ? t("loading") : t("empty")}
                                 </TableCell>
                             </TableRow>
                         )}
@@ -250,10 +252,10 @@ export function HomeworkTable({ subjectId }: { subjectId?: string }) {
 
             <div className="flex items-center justify-center space-x-2 py-4">
                 <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                    Previous
+                    {t("previous")}
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                    Next
+                    {t("next")}
                 </Button>
             </div>
         </div>

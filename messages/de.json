@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "Edura – Dein persönnlicher Hausaufgaben Tracker",
+    "description": "Edura ist benutzerfreundliches Tool, mit dem Sie Ihre Hausaufgaben effektiv organisieren und immer alles im Auge behalten können. Planen, verwalten und verfolgen - alle in einer persönlichen Umgebung.",
+    "button": "Log In"
+  },
+  "Sidebar": {
+    "page_home": "Home",
+    "page_subjects": "Fächer",
+    "category_subjects": "Fächer",
+    "error_subjects": "Fehler beim Laden der Fächer",
+    "no_subjects": "Keine Fächer vorhanden"
+  },
+  "LoginForm": {
+    "title": "Willkommen zurück",
+    "subtitle": "Melde dich mit deinem Konto an",
+    "email": "E-Mail",
+    "email_placeholder": "m@example.com",
+    "password": "Passwort",
+    "forgot_password": "Passwort vergessen?",
+    "remember_me": "Angemeldet bleiben",
+    "login": "Anmelden",
+    "no_account": "Noch kein Konto?",
+    "sign_up": "Registrieren",
+    "terms_prefix": "Durch Klicken auf Weiter stimmst du unseren",
+    "terms_tos": "Nutzungsbedingungen",
+    "terms_and": "und",
+    "terms_pp": "Datenschutzbestimmungen"
+  },
+  "SubjectsPage": {
+    "confirm_delete": "Dieses Fach löschen?",
+    "load_error": "Fehler beim Laden der Fächer.",
+    "retry": "Erneut versuchen",
+    "title": "Fächer",
+    "empty": "Noch keine Fächer.",
+    "actions": "Aktionen",
+    "open": "Öffnen",
+    "delete": "Löschen"
+  },
+  "SubjectPage": {
+    "invalid_id": "Ungültige Fach-ID.",
+    "back_to_dashboard": "Zurück zum Dashboard",
+    "load_error": "Fehler beim Laden des Fachs.",
+    "retry": "Erneut versuchen",
+    "not_found": "Fach nicht gefunden.",
+    "information": "Informationen",
+    "created": "Erstellt"
+  },
+  "HomeworkTable": {
+    "completed": "Erledigt",
+    "toggle_complete_aria": "Als erledigt markieren",
+    "title": "Titel",
+    "due": "Fällig",
+    "open_menu_sr": "Menü öffnen",
+    "actions": "Aktionen",
+    "copy_id": "ID kopieren",
+    "delete": "Löschen",
+    "filter_title_placeholder": "Titel filtern...",
+    "status_label": "Aufgabenstatus",
+    "status_all": "Alle Aufgaben",
+    "status_pending": "Offen",
+    "status_completed": "Erledigt",
+    "loading": "Laden...",
+    "empty": "Nichts da :)",
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "HomeworkCreate": {
+    "trigger_create": "Erstellen",
+    "title": "Hausaufgabe erstellen",
+    "subject_label": "Fach",
+    "subject_placeholder": "Bitte wählen…",
+    "title_label": "Titel",
+    "due_label": "Datum",
+    "description_label": "Beschreibung",
+    "cancel": "Abbrechen",
+    "submit": "Erstellen",
+    "submitting": "Erstellen..."
+  },
+  "SubjectCreate": {
+    "title": "Fach erstellen",
+    "name_label": "Name",
+    "color_label": "Farbe",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
+  },
+  "SubjectEdit": {
+    "trigger_edit": "Bearbeiten",
+    "title": "Fach bearbeiten",
+    "name_label": "Name",
+    "color_label": "Farbe",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "not_found": "404 - Fach nicht gefunden"
+  },
+  "Dashboard": {
+    "empty_title": "Noch keine Fächer",
+    "empty_description": "Erstelle deine ersten Fächer, um mit der Organisation zu beginnen.",
+    "empty_create_button": "Fach erstellen",
+    "error_title": "Fehler beim Laden der Fächer",
+    "error_description": "Bitte versuche es später erneut",
+    "error_retry": "Erneut versuchen",
+    "welcome": "👋 Willkommen, {name}!",
+    "student": "Schüler",
+    "overview_for_today": "Hier ist deine persönliche Übersicht für heute.",
+    "homework_title": "Hausaufgaben",
+    "subjects_title": "Fächer",
+    "subjects_view_all": "Alle anzeigen"
+  },
+  "Breadcrumb": {
+    "home": "Home"
+  },
+  "UserMenu": {
+    "login": "Anmelden",
+    "logout": "Abmelden"
+  }
+}

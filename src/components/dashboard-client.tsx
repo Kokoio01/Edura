@@ -9,6 +9,7 @@ import {Skeleton} from "@/components/ui/skeleton"
 import {HomeworkTable} from "./homework-table"
 import {BookOpen, Calendar, Plus} from "lucide-react"
 import {useSession} from "@/lib/auth-client";
+import {useTranslations} from "next-intl";
 
 interface Subject {
     id: string
@@ -20,6 +21,7 @@ export function DashboardClient() {
     const router = useRouter()
     const user = useSession().data?.user;
     const {subjects, isLoading: subjectsLoading, error: subjectsError} = useSubjects()
+    const t = useTranslations("Dashboard");
 
     const LoadingSkeleton = () => (
         <div className="grid grid-cols-1 gap-4">
@@ -37,38 +39,30 @@ export function DashboardClient() {
         </div>
     )
 
-    const EmptyState = () => (
-        <Card className="border-dashed border-2 border-muted-foreground/25">
-            <CardContent className="flex flex-col items-center justify-center py-12 text-center">
-                <BookOpen className="h-12 w-12 text-muted-foreground/50 mb-4"/>
-                <h3 className="font-semibold text-lg mb-2">Noch keine Fächer</h3>
-                <p className="text-muted-foreground mb-6 max-w-sm">
-                    Lege deine ersten Fächer an, um mit der Organisation zu beginnen.
-                </p>
-                <Button onClick={() => router.push("/subject")} className="gap-2">
-                    <Plus className="h-4 w-4"/>
-                    Fach hinzufügen
-                </Button>
-            </CardContent>
-        </Card>
-    )
+    const EmptyState = () => <Card className="border-dashed border-2 border-muted-foreground/25">
+        <CardContent className="flex flex-col items-center justify-center py-12 text-center">
+            <BookOpen className="h-12 w-12 text-muted-foreground/50 mb-4"/>
+            <h3 className="font-semibold text-lg mb-2">{t("empty_title")}</h3>
+            <p className="text-muted-foreground mb-6 max-w-sm">{t("empty_description")}</p>
+            <Button onClick={() => router.push("/subject")} className="gap-2">
+                <Plus className="h-4 w-4"/>
+                {t("empty_create_button")}
+            </Button>
+        </CardContent>
+    </Card>
 
     const ErrorState = () => (
         <Card className="border-destructive/50 bg-destructive/5">
             <CardContent className="py-8 text-center">
-                <p className="text-destructive font-medium">
-                    Fehler beim Laden der Fächer
-                </p>
-                <p className="text-muted-foreground text-sm mt-2">
-                    Bitte versuche es später erneut
-                </p>
+                <p className="text-destructive font-medium">{t("error_title")}</p>
+                <p className="text-muted-foreground text-sm mt-2">{t("error_description")}</p>
                 <Button
                     variant="outline"
                     size="sm"
                     className="mt-4"
                     onClick={() => window.location.reload()}
                 >
-                    Erneut versuchen
+                    {t("error_retry")}
                 </Button>
             </CardContent>
         </Card>
@@ -111,11 +105,9 @@ export function DashboardClient() {
                 {/* Welcome Section */}
                 <div className="text-center lg:text-left">
                     <h1 className="text-4xl font-bold bg-clip-text mb-2">
-                        👋 Willkommen, {user?.name || "Schüler"}!
+                        {t("welcome", { name: user?.name ?? t("student") })}
                     </h1>
-                    <p className="text-muted-foreground text-lg">
-                        Hier ist deine persönliche Übersicht für heute.
-                    </p>
+                    <p className="text-muted-foreground text-lg">{t("overview_for_today")}</p>
                 </div>
 
                 {/* Main Content Grid */}
@@ -128,7 +120,7 @@ export function DashboardClient() {
                                     <Calendar className="h-5 w-5 text-primary"/>
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-semibold">Hausaufgaben</h2>
+                                    <h2 className="text-2xl font-semibold">{t("homework_title")}</h2>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +135,7 @@ export function DashboardClient() {
                                     <BookOpen className="h-5 w-5 text-primary"/>
                                 </div>
                                 <div>
-                                    <h2 className="text-2xl font-semibold">Fächer</h2>
+                                    <h2 className="text-2xl font-semibold">{t("subjects_title")}</h2>
                                 </div>
                             </div>
                             {subjects.length > 0 && (
@@ -153,7 +145,7 @@ export function DashboardClient() {
                                     onClick={() => router.push("/subject")}
                                     className="gap-2"
                                 >
-                                    Alle anzeigen
+                                    {t("subjects_view_all")}
                                 </Button>
                             )}
                         </div>

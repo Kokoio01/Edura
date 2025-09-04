@@ -11,18 +11,20 @@ import {
 import { useSubjects } from "@/hooks/use-subjects";
 import Link from "next/link";
 import {SubjectCreate} from "@/components/dialogs/subject-create";
+import {useTranslations} from "next-intl";
 
 export function SidebarSubjects() {
     const { subjects, error } = useSubjects();
+    const t = useTranslations("Sidebar")
 
     // Show error state
     if (error) {
         return (
             <SidebarGroup>
-                <SidebarGroupLabel>Fächer</SidebarGroupLabel>
+                <SidebarGroupLabel>{t("category_subjects")}</SidebarGroupLabel>
                 <SidebarMenuItem>
                     <div className="px-3 py-2 text-sm text-red-500">
-                        Fehler beim Laden der Fächer
+                        {t("error_subjects")}
                     </div>
                 </SidebarMenuItem>
             </SidebarGroup>
@@ -33,7 +35,7 @@ export function SidebarSubjects() {
     return (
         <SidebarGroup>
             <SidebarGroupLabel>
-                Fächer
+                {t("category_subjects")}
                 <SidebarGroupAction>
                     <div className="p-1 hover:bg-accent rounded">
                         <SubjectCreate/>
@@ -44,7 +46,7 @@ export function SidebarSubjects() {
                 <SidebarMenu>
                     {subjects.length === 0 ? (
                         <div className="px-3 py-2 text-sm text-muted-foreground">
-                            Keine Fächer vorhanden
+                            {t("no_subjects")}
                         </div>
                     ) : (
                         subjects.map((subject) => (

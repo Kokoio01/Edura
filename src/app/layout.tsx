@@ -6,6 +6,8 @@ import {SidebarApp} from "@/components/sidebar/sidebar-app";
 import { ThemeProvider } from "@/components/theme-provider"
 import {TRPCProvider} from "@/components/trpc-provider";
 import {SiteHeader} from "@/components/site-header";
+import {NextIntlClientProvider} from "next-intl";
+import {getLocale} from "next-intl/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,13 +24,14 @@ export const metadata: Metadata = {
   description: "A Homework Tracker",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-      <html lang="en" suppressHydrationWarning>
+      <html lang={locale} suppressHydrationWarning>
       <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -39,22 +42,24 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
           >
-              <SidebarProvider
-                  style={
-                      {
-                          "--sidebar-width": "calc(var(--spacing) * 72)",
-                          "--header-height": "calc(var(--spacing) * 12)",
-                      } as React.CSSProperties
-                  }
-              >
-                  <SidebarApp/>
-                  <SidebarInset>
-                      <SiteHeader/>
-                      <main>
-                          {children}
-                      </main>
-                  </SidebarInset>
-              </SidebarProvider>
+              <NextIntlClientProvider>
+                  <SidebarProvider
+                      style={
+                          {
+                              "--sidebar-width": "calc(var(--spacing) * 72)",
+                              "--header-height": "calc(var(--spacing) * 12)",
+                          } as React.CSSProperties
+                      }
+                  >
+                      <SidebarApp/>
+                      <SidebarInset>
+                          <SiteHeader/>
+                          <main>
+                              {children}
+                          </main>
+                      </SidebarInset>
+                  </SidebarProvider>
+              </NextIntlClientProvider>
           </ThemeProvider>
       </TRPCProvider>
       </body>

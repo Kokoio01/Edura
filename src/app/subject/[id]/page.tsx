@@ -8,6 +8,7 @@ import PatternBackground from "@/components/PatternBackground";
 import { Calendar } from "lucide-react";
 import { HomeworkTable } from "@/components/homework-table";
 import {useSession} from "@/lib/auth-client";
+import {useTranslations} from "next-intl";
 
 export default function SubjectPage() {
     const router = useRouter();
@@ -16,6 +17,7 @@ export default function SubjectPage() {
     const { id } = params;
 
     const user = useSession().data?.user;
+    const t = useTranslations("SubjectPage");
 
     const {
         data: subject,
@@ -29,14 +31,14 @@ export default function SubjectPage() {
         },
     );
 
-    if (id === null) {errors = "Ungültige Fach-ID."}
+    if (id === null) {errors = t("invalid_id")}
 
     if (errors) {
         return (
             <div className="p-6">
                 <p className="text-red-500">{errors}</p>
                 <Button className="mt-4" onClick={() => router.push("/dashboard")}>
-                    Zurück zum Dashboard
+                    {t("back_to_dashboard")}
                 </Button>
             </div>
         );
@@ -55,9 +57,9 @@ export default function SubjectPage() {
     if (error) {
         return (
             <div className="p-6">
-                <p className="text-red-500">Fehler beim Laden des Fachs.</p>
+                <p className="text-red-500">{t("load_error")}</p>
                 <Button className="mt-4" onClick={() => router.refresh()}>
-                    Erneut versuchen
+                    {t("retry")}
                 </Button>
             </div>
         );
@@ -66,9 +68,9 @@ export default function SubjectPage() {
     if (!subject) {
         return (
             <div className="p-6">
-                <p className="text-muted-foreground">Fach nicht gefunden.</p>
+                <p className="text-muted-foreground">{t("not_found")}</p>
                 <Button className="mt-4" onClick={() => router.push("/dashboard")}>
-                    Zurück zum Dashboard
+                    {t("back_to_dashboard")}
                 </Button>
             </div>
         );
@@ -104,13 +106,13 @@ export default function SubjectPage() {
                         {/* Metadata Sidebar */}
                         <div className="lg:w-80 space-y-6">
                             <div className="rounded-xl p-6 shadow-sm">
-                                <h3 className="mb-4 text-lg font-semibold">Information</h3>
+                                <h3 className="mb-4 text-lg font-semibold">{t("information")}</h3>
 
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-3 text-sm text-gray-200">
                                         <Calendar className="size-4" />
                                         <span>
-                                          Erstellt: {subject.createdAt?.toLocaleDateString()}
+                                          {t("created")}: {subject.createdAt?.toLocaleDateString()}
                                         </span>
                                     </div>
                                 </div>

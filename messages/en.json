@@ -1,0 +1,117 @@
+{
+  "HomePage": {
+    "title": "Edura – Your personal homework tracker",
+    "description": "Edura is user-friendly tool that helps you\norganize your homework effectively and always keep track of everything.\nPlan, manage, and track—all in a personal environment.",
+    "button": "Log In"
+  },
+  "Sidebar": {
+    "page_home": "Home",
+    "page_subjects": "Subjects",
+    "category_subjects": "Subjects",
+    "error_subjects": "Failed to load subjects",
+    "no_subjects": "No subjects available"
+  },
+  "LoginForm": {
+    "title": "Welcome back",
+    "subtitle": "Login with your account",
+    "email": "Email",
+    "email_placeholder": "m@example.com",
+    "password": "Password",
+    "forgot_password": "Forgot your password?",
+    "remember_me": "Remember Me",
+    "login": "Login",
+    "no_account": "Don't have an account?",
+    "sign_up": "Sign up",
+    "terms_prefix": "By clicking continue, you agree to our",
+    "terms_tos": "Terms of Service",
+    "terms_and": "and",
+    "terms_pp": "Privacy Policy"
+  },
+  "SubjectsPage": {
+    "confirm_delete": "Delete this subject?",
+    "load_error": "Error loading subjects.",
+    "retry": "Try again",
+    "title": "Subjects",
+    "empty": "No subjects yet.",
+    "actions": "Actions",
+    "open": "Open",
+    "delete": "Delete"
+  },
+  "SubjectPage": {
+    "invalid_id": "Invalid subject ID.",
+    "back_to_dashboard": "Back to Dashboard",
+    "load_error": "Error loading subject.",
+    "retry": "Try again",
+    "not_found": "Subject not found.",
+    "information": "Information",
+    "created": "Created"
+  },
+  "HomeworkTable": {
+    "completed": "Done",
+    "toggle_complete_aria": "Toggle complete",
+    "title": "Title",
+    "due": "Due",
+    "open_menu_sr": "Open menu",
+    "actions": "Actions",
+    "copy_id": "Copy ID",
+    "delete": "Delete",
+    "filter_title_placeholder": "Filter title...",
+    "status_label": "Task status",
+    "status_all": "All tasks",
+    "status_pending": "Pending",
+    "status_completed": "Completed",
+    "loading": "Loading...",
+    "empty": "Nothing here :)",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "HomeworkCreate": {
+    "trigger_create": "Create",
+    "title": "Create homework",
+    "subject_label": "Subject",
+    "subject_placeholder": "Please select…",
+    "title_label": "Title",
+    "due_label": "Date",
+    "description_label": "Description",
+    "cancel": "Cancel",
+    "submit": "Create",
+    "submitting": "Creating..."
+  },
+  "Breadcrumb": {
+    "home": "Home"
+  },
+  "SubjectCreate": {
+    "title": "Create subject",
+    "name_label": "Name",
+    "color_label": "Color",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "SubjectEdit": {
+    "trigger_edit": "Edit",
+    "title": "Edit subject",
+    "name_label": "Name",
+    "color_label": "Color",
+    "cancel": "Cancel",
+    "save": "Save",
+    "not_found": "404 - Subject not found"
+  },
+  "Dashboard": {
+    "empty_title": "No subjects yet",
+    "empty_description": "Create your first subjects to start the organization.",
+    "empty_create_button": "Create Subject",
+    "error_title": "Error loading the subjects",
+    "error_description": "Please try again later",
+    "error_retry": "Try Again",
+    "welcome": "👋 Welcome, {name}!",
+    "student": "Student",
+    "overview_for_today": "Here is your personal overview for today.",
+    "homework_title": "Homework",
+    "subjects_title": "Subjects",
+    "subjects_view_all": "View all"
+  },
+  "UserMenu": {
+    "login": "Log in",
+    "logout": "Log Out"
+  }
+}

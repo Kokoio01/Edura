@@ -13,23 +13,25 @@ import {SidebarUser} from "@/components/sidebar/sidebar-user";
 import {SidebarSubjects} from "@/components/sidebar/sidebar-subject";
 import {useSession} from "@/lib/auth-client";
 import {useRouter} from "next/navigation";
-
-const items = [
-    {
-        title: "Home",
-        url: "/",
-        icon: Home
-    },
-    {
-        title: "Subjects",
-        url: "/subject",
-        icon: BookIcon
-    }
-]
+import {useTranslations} from "next-intl";
 
 export function SidebarApp() {
     const session = useSession()
     const router = useRouter();
+    const t = useTranslations("Sidebar")
+
+    const items = [
+        {
+            title: t("page_home"),
+            url: "/",
+            icon: Home
+        },
+        {
+            title: t("page_subjects"),
+            url: "/subject",
+            icon: BookIcon
+        }
+    ]
 
     return (
         <Sidebar variant="inset">

@@ -7,11 +7,13 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {useIsMobile} from "@/hooks/use-mobile";
 import {signOut} from "@/lib/auth-client";
 import {router} from "next/client";
+import {useTranslations} from "next-intl";
 
 export function SidebarUser() {
     const isMob = useIsMobile();
     const session = useSession()
     const user = session.data?.user;
+    const t = useTranslations("UserMenu");
 
     function getInitials(name: string) {
         return name
@@ -35,7 +37,7 @@ export function SidebarUser() {
                                            (window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`)
                                        }>
                         <LogInIcon/>
-                        <span>Log in</span>
+                        <span>{t("login")}</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarMenu>
@@ -65,7 +67,7 @@ export function SidebarUser() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side={isMob ? "top" : "right"}>
                         <DropdownMenuItem onClick={logOut}>
-                            Log Out
+                            {t("logout")}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

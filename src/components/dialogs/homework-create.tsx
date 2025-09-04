@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc";
 import { useSubjects } from "@/hooks/use-subjects";
+import {useTranslations} from "next-intl";
 
 interface HomeworkCreateProps {
     subjectId?: string;
@@ -29,6 +30,7 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
     const [subject, setSubject] = React.useState(subjectId ?? "");
     const { subjects } = useSubjects();
     const utils = trpc.useUtils();
+    const t = useTranslations("HomeworkCreate");
 
     const createMutation = trpc.homework.create.useMutation({
         onSuccess: () => {
@@ -60,17 +62,17 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Erstellen</Button>
+                <Button variant="outline">{t("trigger_create")}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Hausaufgabe erstellen</DialogTitle>
+                    <DialogTitle>{t("title")}</DialogTitle>
                 </DialogHeader>
 
                 <form onSubmit={onSubmit} className="grid gap-4">
                     {!subjectId && (
                         <div className="grid gap-3">
-                            <Label htmlFor="subject-1">Fach</Label>
+                            <Label htmlFor="subject-1">{t("subject_label")}</Label>
                             <select
                                 id="subject-1"
                                 name="subject"
@@ -78,8 +80,8 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
                                 value={subject}
                                 onChange={(e) => setSubject(e.target.value)}
                             >
-                                <option value="">Bitte wählen…</option>
-                                {subjects.map((s: any) => (
+                                <option value="">{t("subject_placeholder")}</option>
+                                {subjects.map((s) => (
                                     <option key={s.id} value={s.id}>
                                         {s.name}
                                     </option>
@@ -89,12 +91,12 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
                     )}
 
                     <div className="grid gap-3">
-                        <Label htmlFor="title-1">Title</Label>
+                        <Label htmlFor="title-1">{t("title_label")}</Label>
                         <Input id="title-1" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                     </div>
 
                     <div className="grid gap-3">
-                        <Label htmlFor="duedate-1">Datum</Label>
+                        <Label htmlFor="duedate-1">{t("due_label")}</Label>
                         <Input
                             id="duedate-1"
                             name="duedate"
@@ -105,7 +107,7 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
                     </div>
 
                     <div className="grid gap-3">
-                        <Label htmlFor="description-1">Beschreibung</Label>
+                        <Label htmlFor="description-1">{t("description_label")}</Label>
                         <Textarea
                             id="description-1"
                             name="description"
@@ -117,11 +119,11 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
                     <DialogFooter className="pt-3">
                         <DialogClose asChild>
                             <Button type="button" variant="outline">
-                                Abbrechen
+                                {t("cancel")}
                             </Button>
                         </DialogClose>
                         <Button type="submit" disabled={!canSubmit}>
-                            {createMutation.isPending ? "Erstellen..." : "Erstellen"}
+                            {createMutation.isPending ? t("submitting") : t("submit")}
                         </Button>
                     </DialogFooter>
                 </form>
