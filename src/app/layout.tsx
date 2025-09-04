@@ -32,6 +32,19 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
       <html lang={locale} suppressHydrationWarning>
+      <head>
+          <meta name="application-name" content="Edura" />
+          <meta name="apple-mobile-web-app-title" content="Edura" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <link rel="apple-touch-icon-precomposed" href="/apple-icon.png" />
+          <meta name="format-detection" content="telephone=no" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="msapplication-TileColor" content="#028877" />
+          <meta name="theme-color" content="#028877" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -7,7 +7,7 @@ import {db} from "@/db";
 type Context = {
     db: typeof db;
     auth: typeof auth;
-    session: any;
+    session: never;
     userId: string;
 };
 

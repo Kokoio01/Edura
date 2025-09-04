@@ -39,7 +39,7 @@ const deleteSubjectSchema = z.object({
 });
 
 export const subjectsRouter = router({
-    getAll: protectedProcedure.input(z.void()).query(async ({ ctx, input }) => {
+    getAll: protectedProcedure.input(z.void()).query(async ({ ctx }) => {
         try {
             const userSubjects = await ctx.db
                 .select()
@@ -48,7 +48,7 @@ export const subjectsRouter = router({
                 .orderBy(desc(subjects.createdAt));
 
             return userSubjects;
-        } catch (error) {
+        } catch {
             throw new TRPCError({
                 code: "INTERNAL_SERVER_ERROR",
                 message: "Failed to fetch subjects",
@@ -109,7 +109,7 @@ export const subjectsRouter = router({
                     .returning();
 
                 return newSubject;
-            } catch (error) {
+            } catch {
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
                     message: "Failed to create subject",
@@ -140,7 +140,7 @@ export const subjectsRouter = router({
                     });
                 }
 
-                const updateData: any = {
+                const updateData: Partial<typeof subjects.$inferInsert> = {
                     updatedAt: new Date(),
                 };
 
@@ -246,7 +246,7 @@ export const subjectsRouter = router({
                 return searchResults.filter((subject) =>
                     subject.name.toLowerCase().includes(input.query.toLowerCase()),
                 );
-            } catch (error) {
+            } catch {
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
                     message: "Failed to search subjects",

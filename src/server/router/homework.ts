@@ -70,7 +70,7 @@ export const homeworkRouter = router({
                     return items.filter((i) => i.completed === input.completed);
                 }
                 return items;
-            } catch (error) {
+            } catch {
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
                     message: "Failed to fetch homework",
@@ -175,13 +175,14 @@ export const homeworkRouter = router({
                 }
             }
 
-            const updateData: any = { updatedAt: new Date() };
-            if (input.title !== undefined) updateData.title = input.title;
-            if (input.description !== undefined)
-                updateData.description = input.description;
-            if (input.dueDate !== undefined) updateData.dueDate = input.dueDate;
-            if (input.completed !== undefined) updateData.completed = input.completed;
-            if (input.subjectId !== undefined) updateData.subjectId = input.subjectId;
+            const updateData = {
+                updatedAt: new Date(),
+                title: input.title,
+                description: input.description,
+                dueDate: input.dueDate,
+                completed: input.completed,
+                subjectId: input.subjectId
+            } satisfies Partial<typeof homework.$inferInsert>;
 
             const updated = await ctx.db
                 .update(homework)
