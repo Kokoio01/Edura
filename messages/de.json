@@ -7,6 +7,7 @@
   "Sidebar": {
     "page_home": "Home",
     "page_subjects": "Fächer",
+    "page_settings": "Einstellungen",
     "category_subjects": "Fächer",
     "error_subjects": "Fehler beim Laden der Fächer",
     "no_subjects": "Keine Fächer vorhanden"
@@ -45,6 +46,39 @@
     "not_found": "Fach nicht gefunden.",
     "information": "Informationen",
     "created": "Erstellt"
+  },
+  "UsersTable": {
+    "search_placeholder": "Benutzer suchen...",
+    "loading": "Lade Benutzer...",
+    "no_users": "Keine Benutzer gefunden",
+    "actions": "Aktionen",
+    "make_admin": "Zum Admin machen",
+    "revoke_admin": "Admin-Rechte entziehen",
+    "name_required": "Name darf nicht leer sein",
+    "password_required": "Passwort ist erforderlich",
+    "password_min_length": "Das Passwort muss mindestens 6 Zeichen lang sein",
+    "error_loading_users": "Fehler beim Laden der Benutzer",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "login_required": "Du musst angemeldet sein, um diese Seite zu sehen.",
+    "role_user": "Benutzer",
+    "role_admin": "Administrator"
+  },
+  "UserCreate": {
+    "trigger_create": "Erstellen",
+    "title": "Benutzer erstellen",
+    "email_label": "E-Mail",
+    "name_label": "Name",
+    "password_label": "Passwort",
+    "role_label": "Rolle",
+    "cancel": "Abbrechen",
+    "create": "Erstellen"
+  },
+  "UserDelete": {
+    "trigger_delete": "Löschen",
+    "title": "Benutzer löschen",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
   },
   "HomeworkTable": {
     "completed": "Erledigt",

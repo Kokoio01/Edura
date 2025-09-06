@@ -8,7 +8,7 @@ import {
     SidebarGroupLabel,
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem
 } from "@/components/ui/sidebar";
-import {BookIcon, Home} from "lucide-react";
+import {BookIcon, Cog, Home} from "lucide-react";
 import {SidebarUser} from "@/components/sidebar/sidebar-user";
 import {SidebarSubjects} from "@/components/sidebar/sidebar-subject";
 import {useSession} from "@/lib/auth-client";
@@ -30,6 +30,11 @@ export function SidebarApp() {
             title: t("page_subjects"),
             url: "/subject",
             icon: BookIcon
+        },
+        {
+            title: t("page_settings"),
+            url: "/settings",
+            icon: Cog
         }
     ]
 

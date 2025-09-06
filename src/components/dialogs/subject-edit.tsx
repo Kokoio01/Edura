@@ -20,7 +20,6 @@ export function SubjectEdit({ subjectId }: SubjectEditProps) {
     const [open, setOpen] = React.useState(false);
     const [name, setName] = React.useState(s?.name)
     const [color, setColor] = React.useState(s?.color)
-    const utils = trpc.useUtils();
     const t = useTranslations("SubjectEdit");
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +27,6 @@ export function SubjectEdit({ subjectId }: SubjectEditProps) {
         if (s) {
             updateSubject({subjectId: s.id, name: name, color: color});
             setOpen(false);
-            utils.subject.getAll.invalidate();
         }
     }
 

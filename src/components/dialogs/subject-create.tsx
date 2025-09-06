@@ -16,14 +16,12 @@ export function SubjectCreate() {
     const [open, setOpen] = React.useState(false);
     const [name, setName] = React.useState("")
     const [color, setColor] = React.useState("")
-    const utils = trpc.useUtils();
     const t = useTranslations("SubjectCreate");
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         createSubject({name: name, color: color})
         setOpen(false);
-        utils.subject.getAll.invalidate();
     }
 
     return (

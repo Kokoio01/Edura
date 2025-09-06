@@ -6,10 +6,11 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {useIsMobile} from "@/hooks/use-mobile";
 import {signOut} from "@/lib/auth-client";
-import {router} from "next/client";
 import {useTranslations} from "next-intl";
+import { useRouter } from "next/navigation";
 
 export function SidebarUser() {
+    const router = useRouter()
     const isMob = useIsMobile();
     const session = useSession()
     const user = session.data?.user;
