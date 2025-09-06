@@ -80,6 +80,16 @@
     "cancel": "Abbrechen",
     "delete": "Löschen"
   },
+  "UserEdit": {
+    "trigger_edit": "Bearbeiten",
+    "title": "Benutzer bearbeiten",
+    "email_label": "E-Mail",
+    "name_label": "Name",
+    "password_label": "Passwort",
+    "role_label": "Rolle",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
+  },
   "HomeworkTable": {
     "completed": "Erledigt",
     "toggle_complete_aria": "Als erledigt markieren",
@@ -147,5 +157,33 @@
   "UserMenu": {
     "login": "Anmelden",
     "logout": "Abmelden"
+  },
+  "PasswordEdit": {
+    "trigger_edit": "Passwort ändern",
+    "title": "Passwort ändern",
+    "old_pass_label": "Altes Passwort",
+    "new_pass_label": "Neues Passwort",
+    "new_pass_confirm_label": "Neues Passwort bestätigen",
+    "new_pass_confirm_error": "Neue Passwörter stimmen nicht überein. Bitte versuche es erneut.",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
+  },
+  "SettingsPage": {
+    "title": "Einstellungen",
+    "tab_account": "Konto",
+    "title_account": "Mein Konto",
+    "account_name_label": "Name",
+    "account_email_label": "Email",
+    "account_password_label": "Passwort",
+    "name_changed_success": "Name erfolgreich geändert.",
+    "tab_design": "Design",
+    "title_design": "Wählen Sie Ihr Design",
+    "theme_light": "Hell",
+    "theme_dark": "Dunkel",
+    "theme_system": "System",
+    "tab_language": "Sprache",
+    "title_language": "Sprache auswählen",
+    "admin_users": "Benutzer",
+    "title_users": "Benutzer"
   }
 }
