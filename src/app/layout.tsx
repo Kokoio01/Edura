@@ -8,6 +8,7 @@ import {TRPCProvider} from "@/components/trpc-provider";
 import {SiteHeader} from "@/components/site-header";
 import {NextIntlClientProvider} from "next-intl";
 import {getLocale} from "next-intl/server";
+import { Toaster } from "@/components/ui/sonner"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,6 +73,7 @@ export default async function RootLayout({
                           </main>
                       </SidebarInset>
                   </SidebarProvider>
+                  <Toaster/>
               </NextIntlClientProvider>
           </ThemeProvider>
       </TRPCProvider>

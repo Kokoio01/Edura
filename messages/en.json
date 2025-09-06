@@ -7,6 +7,7 @@
   "Sidebar": {
     "page_home": "Home",
     "page_subjects": "Subjects",
+    "page_settings": "Settings",
     "category_subjects": "Subjects",
     "error_subjects": "Failed to load subjects",
     "no_subjects": "No subjects available"
@@ -45,6 +46,49 @@
     "not_found": "Subject not found.",
     "information": "Information",
     "created": "Created"
+  },
+  "UsersTable": {
+    "search_placeholder": "Search users...",
+    "loading": "Loading users...",
+    "no_users": "No users found",
+    "actions": "Actions",
+    "make_admin": "Make Admin",
+    "revoke_admin": "Revoke Admin",
+    "name_required": "Name cannot be empty",
+    "password_required": "Password is required",
+    "password_min_length": "Password must be at least 6 characters",
+    "error_loading_users": "Failed to load users",
+    "previous": "Previous",
+    "next": "Next",
+    "login_required": "You need to be logged in to view this page.",
+    "role_user": "User",
+    "role_admin": "Administrator"
+  },
+  "UserCreate": {
+    "trigger_create": "Create",
+    "title": "Create User",
+    "email_label": "Email",
+    "name_label": "Name",
+    "password_label": "Password",
+    "role_label": "Role",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "UserDelete": {
+    "trigger_delete": "Delete",
+    "title": "Delete User",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "UserEdit": {
+    "trigger_edit": "Edit",
+    "title": "Edit User",
+    "email_label": "Email",
+    "name_label": "Name",
+    "password_label": "Password",
+    "role_label": "Role",
+    "cancel": "Cancel",
+    "save": "Save"
   },
   "HomeworkTable": {
     "completed": "Done",
@@ -113,5 +157,33 @@
   "UserMenu": {
     "login": "Log in",
     "logout": "Log Out"
+  },
+  "PasswordEdit": {
+    "trigger_edit": "Change",
+    "title": "Change Password",
+    "old_pass_label": "Old Password",
+    "new_pass_label": "New Password",
+    "new_pass_confirm_label": "Confirm New Password",
+    "new_pass_confirm_error": "New passwords don't match. Please try again.",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "SettingsPage": {
+    "title": "Settings",
+    "tab_account": "Account",
+    "title_account": "My Account",
+    "account_name_label": "Name",
+    "account_email_label": "Email",
+    "account_password_label": "Password",
+    "name_changed_success": "Name changed successfully.",
+    "tab_design": "Appearance",
+    "title_design": "Choose Your Theme",
+    "theme_light": "Light",
+    "theme_dark": "Dark",
+    "theme_system": "System",
+    "tab_language": "Language",
+    "title_language": "Choose Your Language",
+    "admin_users": "Users",
+    "title_users": "Users"
   }
 }
