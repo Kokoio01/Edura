@@ -1,4 +1,25 @@
 services:
+  app:
+    build: .
+    restart: unless-stopped
+    container_name: Edura
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_SSL: ${DB_SSL}
+
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASS: ${ADMIN_PASS}
+    ports:
+      - "80:3000"
+    depends_on:
+      - db
+
   db:
     image: postgres:17-alpine
     restart: unless-stopped

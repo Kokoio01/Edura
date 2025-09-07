@@ -11,7 +11,7 @@ import { UserResetPassword } from "./dialogs/user-reset-password";
 import { Loader2, MoreHorizontal, Search, ArrowUpDown } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 import { UserEdit } from "./dialogs/user-edit";
 
@@ -54,14 +54,9 @@ const UserTable = () => {
 
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
-    const [editingUserId, setEditingUserId] = useState<string | null>(null);
-    const [editedName, setEditedName] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'email', direction: 'asc' });
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     // Load users
     const loadUsers = useCallback(async () => {
@@ -106,7 +101,6 @@ const UserTable = () => {
         return result;
     }, [users, searchTerm, sortConfig])
 
-    const totalPages = Math.ceil(sortedAndFilteredUsers.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const paginatedUsers = sortedAndFilteredUsers.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 

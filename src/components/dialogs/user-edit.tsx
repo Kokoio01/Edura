@@ -8,7 +8,6 @@ import { Label } from "../ui/label";
 import {useTranslations} from "next-intl";
 import { admin } from "@/lib/auth-client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Edit, Plus } from "lucide-react";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 interface UserEditProps {

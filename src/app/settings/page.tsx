@@ -4,7 +4,7 @@ import { useState } from "react";
 import {useTranslations} from "next-intl";
 import SettingsAccount from "@/components/settings/settings-account";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {admin, useSession} from "@/lib/auth-client";
+import {useSession} from "@/lib/auth-client";
 import {Separator} from "@/components/ui/separator";
 import SettingsLanguage from "@/components/settings/settings-language";
 import SettingsDesign from "@/components/settings/settings-design";
