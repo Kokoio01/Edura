@@ -7,7 +7,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import ColorSelector from "../ui/color-selector";
-import { trpc } from "@/lib/trpc";
 import {useTranslations} from "next-intl";
 
 interface SubjectEditProps {
