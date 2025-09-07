@@ -4,8 +4,6 @@ import { db } from "@/db";
 import { user, session, verification, account } from "@/db/schema/auth-schema";
 import { eq } from "drizzle-orm";
 import { admin } from "better-auth/plugins";
-import bcrypt from "bcryptjs";
-import { randomUUID } from "crypto";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -19,47 +17,43 @@ export const auth = betterAuth({
     }),
     emailAndPassword: {
         enabled: true,
-        disableSignUp: true
+        disableSignUp: true,
     },
-    plugins: [
-        admin()
-    ],
+    plugins: [admin()],
 });
 
+let ensureAdminPromise: Promise<void> | null = null;
 
-export async function ensureAdminUser()
- {
-    const adminEmail = process.env.ADMIN_EMAIL;
-    const adminPassword = process.env.ADMIN_PASS;
-
-    if (!adminEmail || !adminPassword) {
-        console.warn("ensureAdminUser: ADMIN_EMAIL or ADMIN_PASS not set – skipping admin bootstrap");
-        return;
+export function ensureAdminUser(): Promise<void> {
+    if (ensureAdminPromise) {
+        return ensureAdminPromise;
     }
 
-    const existingAdmins = await db.select().from(user).where(eq(user.role, "admin"));
+    ensureAdminPromise = (async () => {
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASS;
 
-    if (existingAdmins.length === 0) {
-        console.log("No admin found – creating initial admin user directly in DB");
-        const userId = randomUUID();
-        const passwordHash = await bcrypt.hash(adminPassword, 10);
+        if (!adminEmail || !adminPassword) {
+            console.warn(
+                "ensureAdminUser: ADMIN_EMAIL or ADMIN_PASS not set – skipping admin bootstrap"
+            );
+            return;
+        }
 
-        await db.insert(user).values({
-            id: userId,
-            name: "Admin",
-            email: adminEmail,
-            role: "admin",
-        });
+        const existingAdmins = await db.select().from(user).where(eq(user.role, "admin"));
 
-        await db.insert(account).values({
-            id: randomUUID(),
-            accountId: adminEmail,
-            providerId: "email",
-            userId: userId,
-            password: passwordHash,
-        });
-        return;
-    }
+        if (existingAdmins.length === 0) {
+            console.log("No admin found – creating initial admin user directly in DB");
+            await auth.api.createUser({
+                body: {
+                    email: adminEmail,
+                    password: adminPassword,
+                    name: "Admin",
+                    role: "admin",
+                },
+            });
+        }
+    })();
+
+    return ensureAdminPromise;
 }
-
-ensureAdminUser()
