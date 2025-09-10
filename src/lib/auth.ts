@@ -19,7 +19,12 @@ export const auth = betterAuth({
         enabled: true,
         disableSignUp: true,
     },
-    plugins: [admin()],
+    plugins: [
+        admin()
+    ],
+    trustedOrigins: [
+        ...(process.env.APP_URL ? [process.env.APP_URL] : [])
+    ]
 });
 
 let ensureAdminPromise: Promise<void> | null = null;

@@ -16,6 +16,7 @@ import {Checkbox} from "@/components/ui/checkbox";
 import {useRouter} from "next/navigation";
 import {useSearchParams} from "next/navigation";
 import {useTranslations} from "next-intl";
+import posthog from "posthog-js"
 
 export function LoginForm({
                               className,
@@ -54,11 +55,13 @@ export function LoginForm({
                 setLoading(false);
                 const cloned = ctx.response.clone();
                 const json = await cloned.json();
-                setError(json.message);
                 if (cloned.status === 200) {
-                    console.log(redirectTo);
+                    if (json.user && json.user.id) {
+                        posthog.identify(json.user.id);
+                    }
                     router.push(redirectTo);
                 }
+                setError(json.message);
             },
         }
         );
