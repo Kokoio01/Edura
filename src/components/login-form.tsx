@@ -60,8 +60,9 @@ export function LoginForm({
                         posthog.identify(json.user.id);
                     }
                     router.push(redirectTo);
+                } else {
+                    setError(json.message);
                 }
-                setError(json.message);
             },
         }
         );
