@@ -1,6 +1,6 @@
 services:
   app:
-    image: kokoio01/edura:latest
+    build: .
     restart: unless-stopped
     container_name: Edura
     environment:

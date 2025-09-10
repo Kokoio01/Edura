@@ -25,6 +25,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
+# Ensure the public directory is writable by the runtime user that will run the container
+RUN chown -R nextjs:nodejs /app/public || true
+
 COPY entrypoint.sh ./
 COPY drizzle.config.ts ./
 COPY --from=builder /app/src/db/schema ./src/db/schema

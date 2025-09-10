@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {SidebarInset, SidebarProvider} from "@/components/ui/sidebar";
@@ -34,6 +35,8 @@ export default async function RootLayout({
   return (
       <html lang={locale} suppressHydrationWarning>
       <head>
+          {/* Runtime config injected at container start. Keep this before app bundles so code can read it on load. */}
+          <Script strategy="beforeInteractive" src="/runtime-config.js" />
           <meta name="application-name" content="Edura" />
           <meta name="apple-mobile-web-app-title" content="Edura" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
