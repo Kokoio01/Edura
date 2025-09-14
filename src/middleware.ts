@@ -14,6 +14,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
 }
 export const config = {
-    matcher: ['/dashboard/:path*', '/subject/:path*'],
+    matcher: ['/dashboard/:path*', '/subject/:path*', '/settings/:path*'],
     runtime: "nodejs",
 };

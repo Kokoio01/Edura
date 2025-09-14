@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {SidebarInset, SidebarProvider} from "@/components/ui/sidebar";
@@ -10,6 +9,7 @@ import {SiteHeader} from "@/components/site-header";
 import {NextIntlClientProvider} from "next-intl";
 import {getLocale} from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner"
+import { PostHogProvider } from "@/components/posthog-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +33,8 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   return (
-      <html lang={locale} suppressHydrationWarning>
-      <head>
-          {/* Runtime config injected at container start. Keep this before app bundles so code can read it on load. */}
-          <Script strategy="beforeInteractive" src="/runtime-config.js" />
+    <html lang={locale} suppressHydrationWarning>
+    <head>
           <meta name="application-name" content="Edura" />
           <meta name="apple-mobile-web-app-title" content="Edura" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -48,39 +46,44 @@ export default async function RootLayout({
           <meta name="theme-color" content="#028877" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
-      <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <TRPCProvider>
-          <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-          >
-              <NextIntlClientProvider>
-                  <SidebarProvider
-                      style={
-                          {
-                              "--sidebar-width": "calc(var(--spacing) * 72)",
-                              "--header-height": "calc(var(--spacing) * 12)",
-                          } as React.CSSProperties
-                      }
-                  >
-                      <SidebarApp/>
-                      <SidebarInset>
-                          <SiteHeader/>
-                          <main>
-                              {children}
-                          </main>
-                      </SidebarInset>
-                  </SidebarProvider>
-                  <Toaster/>
-              </NextIntlClientProvider>
-          </ThemeProvider>
-      </TRPCProvider>
-      </body>
-      </html>
+    </head>
+    <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+        <PostHogProvider 
+          apiKey={process.env.POSTHOG_KEY!}
+          apiHost={process.env.POSTHOG_HOST!}
+        >
+            <TRPCProvider>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <NextIntlClientProvider>
+                        <SidebarProvider
+                            style={
+                                {
+                                    "--sidebar-width": "calc(var(--spacing) * 72)",
+                                    "--header-height": "calc(var(--spacing) * 12)",
+                                } as React.CSSProperties
+                            }
+                        >
+                            <SidebarApp/>
+                            <SidebarInset>
+                                <SiteHeader/>
+                                <main>
+                                    {children}
+                                </main>
+                            </SidebarInset>
+                        </SidebarProvider>
+                        <Toaster/>
+                    </NextIntlClientProvider>
+                </ThemeProvider>
+            </TRPCProvider>
+      </PostHogProvider>
+    </body>
+    </html>
   );
 }
