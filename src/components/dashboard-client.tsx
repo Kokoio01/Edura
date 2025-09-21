@@ -2,14 +2,15 @@
 
 import {useRouter} from "next/navigation"
 import {useSubjects} from "@/hooks/use-subjects"
-import PatternBackground from "@/components/PatternBackground"
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
+import {Card, CardContent, CardHeader } from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
 import {Skeleton} from "@/components/ui/skeleton"
 import {HomeworkTable} from "./homework-table"
 import {BookOpen, Calendar, Plus} from "lucide-react"
 import {useSession} from "@/lib/auth-client";
 import {useTranslations} from "next-intl";
+import SubjectCard from "./subject-card"
+import {SubjectCreate} from "@/components/dialogs/subject-create";
 
 interface Subject {
     id: string
@@ -44,10 +45,7 @@ export function DashboardClient() {
             <BookOpen className="h-12 w-12 text-muted-foreground/50 mb-4"/>
             <h3 className="font-semibold text-lg mb-2">{t("empty_title")}</h3>
             <p className="text-muted-foreground mb-6 max-w-sm">{t("empty_description")}</p>
-            <Button onClick={() => router.push("/subject")} className="gap-2">
-                <Plus className="h-4 w-4"/>
-                {t("empty_create_button")}
-            </Button>
+            <SubjectCreate button="big"/>
         </CardContent>
     </Card>
 
@@ -68,23 +66,6 @@ export function DashboardClient() {
         </Card>
     )
 
-    const SubjectCard = ({subject}: { subject: Subject }) => (
-        <Card
-            key={subject.id}
-            role="button"
-            onClick={() => router.push(`/subject/${subject.id}`)}
-            className="group overflow-hidden p-0 transition-all duration-200 hover:shadow-md cursor-pointer"
-        >
-            <div className="relative h-24 w-full">
-                <PatternBackground className="h-full w-full" color={subject.color}/>
-            </div>
-
-            <CardHeader className="px-4 py-3">
-                <CardTitle className="text-base">{subject.name}</CardTitle>
-            </CardHeader>
-        </Card>
-    )
-
     const renderSubjectsContent = () => {
         if (subjectsLoading) return <LoadingSkeleton/>
         if (subjectsError) return <ErrorState/>
@@ -92,8 +73,8 @@ export function DashboardClient() {
 
         return (
             <div className="grid grid-cols-1 gap-4">
-                {subjects.map((subject: Subject) => (
-                    <SubjectCard key={subject.id} subject={subject}/>
+                {subjects.map((s: Subject) => (
+                    <SubjectCard key={s.id} id={s.id} color={s.color} name={s.name} />
                 ))}
             </div>
         )
@@ -124,7 +105,7 @@ export function DashboardClient() {
                                 </div>
                             </div>
                         </div>
-                        <HomeworkTable/>
+                        <HomeworkTable showSubjects={true}/>
                     </div>
 
                     {/* Subjects Section */}
