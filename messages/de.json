@@ -121,6 +121,9 @@
     "submit": "Erstellen",
     "submitting": "Erstellen..."
   },
+  "Breadcrumb": {
+    "home": "Home"
+  },
   "SubjectCreate": {
     "title": "Fach erstellen",
     "name_label": "Name",
@@ -150,9 +153,6 @@
     "homework_title": "Hausaufgaben",
     "subjects_title": "Fächer",
     "subjects_view_all": "Alle anzeigen"
-  },
-  "Breadcrumb": {
-    "home": "Home"
   },
   "UserMenu": {
     "login": "Anmelden",
