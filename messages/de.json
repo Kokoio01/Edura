@@ -29,7 +29,6 @@
     "terms_pp": "Datenschutzbestimmungen"
   },
   "SubjectsPage": {
-    "confirm_delete": "Dieses Fach löschen?",
     "load_error": "Fehler beim Laden der Fächer.",
     "retry": "Erneut versuchen",
     "title": "Fächer",
