@@ -7,13 +7,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PatternBackground from "@/components/PatternBackground";
 import { Calendar } from "lucide-react";
 import { HomeworkTable } from "@/components/homework-table";
-import {useSession} from "@/lib/auth-client";
-import {useTranslations} from "next-intl";
+import { useSession } from "@/lib/auth-client";
+import { useTranslations } from "next-intl";
+import React from "react";
+import {Separator} from "@/components/ui/separator";
 
 export default function SubjectPage() {
     const router = useRouter();
     const params = useParams();
-    let errors = null;
     const { id } = params;
 
     const user = useSession().data?.user;
@@ -31,12 +32,11 @@ export default function SubjectPage() {
         },
     );
 
-    if (id === null) {errors = t("invalid_id")}
-
-    if (errors) {
+    // Error handling
+    if (id === null) {
         return (
             <div className="p-6">
-                <p className="text-red-500">{errors}</p>
+                <p className="text-red-500">{t("invalid_id")}</p>
                 <Button className="mt-4" onClick={() => router.push("/dashboard")}>
                     {t("back_to_dashboard")}
                 </Button>
@@ -46,81 +46,99 @@ export default function SubjectPage() {
 
     if (isSubjectLoading) {
         return (
-            <div className="p-6 space-y-4">
-                <Skeleton className="h-8 w-56" />
-                <Skeleton className="h-4 w-96" />
-                <Skeleton className="h-4 w-64" />
+            <div className="min-h-screen">
+                {/* Header Skeleton */}
+                <div className="h-48 bg-muted animate-pulse rounded-b-2xl" />
+
+                {/* Content Skeleton */}
+                <div className="p-8 space-y-6">
+                    <Skeleton className="h-12 w-80" />
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <div className="lg:col-span-3 space-y-4">
+                            <Skeleton className="h-8 w-40" />
+                            <Skeleton className="h-64 w-full" />
+                        </div>
+                        <div className="space-y-4">
+                            <Skeleton className="h-6 w-32" />
+                            <Skeleton className="h-20 w-full" />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="p-6">
-                <p className="text-red-500">{t("load_error")}</p>
-                <Button className="mt-4" onClick={() => router.refresh()}>
-                    {t("retry")}
-                </Button>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center">
+                    <p className="text-red-500 mb-4">{t("load_error")}</p>
+                    <Button onClick={() => router.refresh()}>
+                        {t("retry")}
+                    </Button>
+                </div>
             </div>
         );
     }
 
     if (!subject) {
         return (
-            <div className="p-6">
-                <p className="text-muted-foreground">{t("not_found")}</p>
-                <Button className="mt-4" onClick={() => router.push("/dashboard")}>
-                    {t("back_to_dashboard")}
-                </Button>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-center">
+                    <p className="text-muted-foreground mb-4">{t("not_found")}</p>
+                    <Button onClick={() => router.push("/dashboard")}>
+                        {t("back_to_dashboard")}
+                    </Button>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="flex min-h-screen w-full flex-col">
-            {/* Header with Pattern Background */}
-            <div className="relative h-[33vh] w-full">
+        <div className="min-h-screen">
+            {/* Compact Header with Pattern Background */}
+            <header className="relative">
                 <PatternBackground
-                    className="h-full w-full rounded-b-2xl shadow-2xl"
+                    className="h-32 w-full rounded-b-2xl"
                     color={subject.color}
                 />
-            </div>
 
-            {/* Title Section */}
-            <div className="overflow-auto px-8 py-8">
-                <div className="mx-auto">
-                    <h1 className="bg-gradient-to-r bg-clip-text text-6xl font-bold">
-                        {subject.name}
-                    </h1>
-                </div>
-            </div>
-
-            {/* Content Section */}
-            <div className="shadow-inner">
-                <div className="mx-auto px-8 pb-8">
-                    <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
-                        <div className="flex-1 space-y-8">
-                            <HomeworkTable subjectId={subject.id} />
-                        </div>
-
-                        {/* Metadata Sidebar */}
-                        <div className="lg:w-80 space-y-6">
-                            <div className="rounded-xl p-6 shadow-sm">
-                                <h3 className="mb-4 text-lg font-semibold">{t("information")}</h3>
-
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3 text-sm text-gray-200">
-                                        <Calendar className="size-4" />
-                                        <span>
-                                          {t("created")}: {subject.createdAt?.toLocaleDateString()}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white/60 dark:from-black/100 to-transparent pointer-events-none rounded-b-xl" />
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <div className="max-w-7xl mx-auto">
+                        <h1 className="text-4xl font-bold drop-shadow-lg">
+                            {subject.name}
+                        </h1>
                     </div>
                 </div>
-            </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="max-w-7xl mx-auto p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    {/* Primary Content Area */}
+                    <div className="lg:col-span-3">
+                        <HomeworkTable subjectId={subject.id} />
+                    </div>
+
+                    {/* Sidebar */}
+                    <Separator className="lg:hidden"/>
+                    <aside className="flex flex-col lg:col-span-1 lg:pt-7">
+                        <h2 className="text-lg font-bold mb-4">
+                            {t("information")}
+                        </h2>
+
+                        <div className="space-y-3 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                                <Calendar className="size-4"/>
+                                <span>
+                                    {t("created")}: {subject.createdAt?.toLocaleDateString()}
+                                </span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </main>
         </div>
     );
 }

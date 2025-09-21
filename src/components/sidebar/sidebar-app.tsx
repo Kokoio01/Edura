@@ -8,12 +8,13 @@ import {
     SidebarGroupLabel,
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem
 } from "@/components/ui/sidebar";
-import {BookIcon, Cog, Home} from "lucide-react";
+import {BookIcon, Cog, GalleryVerticalEnd, Home} from "lucide-react";
 import {SidebarUser} from "@/components/sidebar/sidebar-user";
 import {SidebarSubjects} from "@/components/sidebar/sidebar-subject";
 import {useSession} from "@/lib/auth-client";
 import {useRouter} from "next/navigation";
 import {useTranslations} from "next-intl";
+import { HomeworkCreate } from "../dialogs/homework-create";
 
 export function SidebarApp() {
     const session = useSession()
@@ -40,7 +41,9 @@ export function SidebarApp() {
 
     return (
         <Sidebar variant="inset">
-            <SidebarHeader/>
+            <SidebarHeader>
+                <HomeworkCreate button="sidebar"/>
+            </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>Edura</SidebarGroupLabel>

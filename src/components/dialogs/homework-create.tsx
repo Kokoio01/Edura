@@ -17,12 +17,15 @@ import { Label } from "@/components/ui/label";
 import { trpc } from "@/lib/trpc";
 import { useSubjects } from "@/hooks/use-subjects";
 import {useTranslations} from "next-intl";
+import { PlusCircle } from "lucide-react";
+import {SidebarMenuButton} from "@/components/ui/sidebar";
 
 interface HomeworkCreateProps {
     subjectId?: string;
+    button?: "sidebar";
 }
 
-export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
+export function HomeworkCreate({ subjectId, button }: HomeworkCreateProps) {
     const [open, setOpen] = React.useState(false);
     const [title, setTitle] = React.useState("");
     const [due, setDue] = React.useState<string>("");
@@ -62,7 +65,14 @@ export function HomeworkCreate({ subjectId }: HomeworkCreateProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">{t("trigger_create")}</Button>
+                {button === "sidebar" ? (
+                    <Button variant="secondary">
+                        <PlusCircle/>
+                        {t("trigger_sidebar_create")}
+                    </Button>
+                ) : (
+                    <Button variant="outline">{t("trigger_create")}</Button>
+                )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

@@ -29,14 +29,10 @@
     "terms_pp": "Datenschutzbestimmungen"
   },
   "SubjectsPage": {
-    "confirm_delete": "Dieses Fach löschen?",
     "load_error": "Fehler beim Laden der Fächer.",
     "retry": "Erneut versuchen",
     "title": "Fächer",
-    "empty": "Noch keine Fächer.",
-    "actions": "Aktionen",
-    "open": "Öffnen",
-    "delete": "Löschen"
+    "empty": "Noch keine Fächer."
   },
   "SubjectPage": {
     "invalid_id": "Ungültige Fach-ID.",
@@ -46,6 +42,12 @@
     "not_found": "Fach nicht gefunden.",
     "information": "Informationen",
     "created": "Erstellt"
+  },
+  "SubjectCard": {
+    "confirm_delete": "Delete this subject?",
+    "actions": "Actions",
+    "open": "Open",
+    "delete": "Delete"
   },
   "UsersTable": {
     "search_placeholder": "Benutzer suchen...",
@@ -92,25 +94,41 @@
   },
   "HomeworkTable": {
     "completed": "Erledigt",
-    "toggle_complete_aria": "Als erledigt markieren",
+    "subject": "Fach",
     "title": "Titel",
-    "due": "Fällig",
-    "open_menu_sr": "Menü öffnen",
-    "actions": "Aktionen",
-    "copy_id": "ID kopieren",
-    "delete": "Löschen",
-    "filter_title_placeholder": "Titel filtern...",
-    "status_label": "Aufgabenstatus",
-    "status_all": "Alle Aufgaben",
-    "status_pending": "Offen",
+    "due": "Fälligkeitsdatum",
+    "toggle_complete_aria": "Erledigungsstatus umschalten",
+    "filter_title_placeholder": "Nach Titel filtern...",
+    "status_label": "Status Filter",
+    "status_all": "Alle",
+    "status_pending": "Ausstehend",
     "status_completed": "Erledigt",
-    "loading": "Laden...",
-    "empty": "Nichts da :)",
+    "loading": "Lädt...",
+    "empty": "Keine Hausaufgaben gefunden.",
     "previous": "Zurück",
     "next": "Weiter"
   },
+  "HomeworkInfo": {
+    "edit_title": "Hausaufgabe bearbeiten",
+    "view_title": "Hausaufgaben-Details",
+    "subject": "Fach",
+    "title": "Titel",
+    "description": "Beschreibung",
+    "due_date": "Fälligkeitsdatum",
+    "completed": "Erledigt",
+    "select_subject": "Fach auswählen",
+    "no_description": "Keine Beschreibung vorhanden",
+    "no_due_date": "Kein Fälligkeitsdatum gesetzt",
+    "delete_confirmation": "Sind Sie sicher, dass Sie diese Hausaufgabe löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "save": "Änderungen speichern",
+    "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "close": "Schließen"
+  },
   "HomeworkCreate": {
     "trigger_create": "Erstellen",
+    "trigger_sidebar_create": "Hausaufgabe erstellen",
     "title": "Hausaufgabe erstellen",
     "subject_label": "Fach",
     "subject_placeholder": "Bitte wählen…",
@@ -122,6 +140,7 @@
     "submitting": "Erstellen..."
   },
   "SubjectCreate": {
+    "create_button": "Fach erstellen",
     "title": "Fach erstellen",
     "name_label": "Name",
     "color_label": "Farbe",
@@ -140,7 +159,6 @@
   "Dashboard": {
     "empty_title": "Noch keine Fächer",
     "empty_description": "Erstelle deine ersten Fächer, um mit der Organisation zu beginnen.",
-    "empty_create_button": "Fach erstellen",
     "error_title": "Fehler beim Laden der Fächer",
     "error_description": "Bitte versuche es später erneut",
     "error_retry": "Erneut versuchen",
