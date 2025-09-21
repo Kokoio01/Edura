@@ -1,28 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { MoreVertical } from "lucide-react";
 import { useSubjects } from "@/hooks/use-subjects";
-import PatternBackground from "@/components/PatternBackground";
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-    DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import Link from "next/link";
-import { SubjectEdit } from "@/components/dialogs/subject-edit";
 import {useTranslations} from "next-intl";
+import SubjectCard from "@/components/subject-card";
+import {SubjectCreate} from "@/components/dialogs/subject-create";
 
 export default function SubjectsPage() {
     const router = useRouter();
@@ -30,15 +14,8 @@ export default function SubjectsPage() {
         subjects,
         isLoading,
         error,
-        deleteSubject,
     } = useSubjects();
     const t = useTranslations("SubjectsPage");
-
-    const onDelete = (subjectId: string) => {
-        if (confirm(t("confirm_delete"))) {
-            deleteSubject({ subjectId });
-        }
-    };
 
     if (error) {
         return (
@@ -55,7 +32,7 @@ export default function SubjectsPage() {
         <div className="flex min-h-screen w-full flex-col p-6">
             <div className="mb-6 flex items-center justify-between">
                 <h1 className="text-2xl font-semibold">{t("title")}</h1>
-                {/* Placeholder for future actions (e.g., create subject) */}
+                <SubjectCreate button="big"/>
             </div>
 
             {isLoading ? (
@@ -75,58 +52,7 @@ export default function SubjectsPage() {
             ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {subjects.map((s) => (
-                        <Link href={`/subject/${s.id}`} key={s.id}>
-                            <Card
-                                role="button"
-                                className="group overflow-hidden p-0"
-                            >
-                                <div className="relative h-24 w-full">
-                                    <PatternBackground className="h-full w-full" color={s.color} />
-                                </div>
-
-                                <CardHeader className="grid grid-cols-[1fr_auto] items-start gap-2 px-4 py-3">
-                                    <CardTitle className="text-base">{s.name}</CardTitle>
-                                    <CardAction>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    aria-label={t("actions")}
-                                                >
-                                                    <MoreVertical className="size-4" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent
-                                                align="end"
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <DropdownMenuItem
-                                                    onClick={() => router.push(`/subject/${s.id}`)}
-                                                    key="open"
-                                                >
-                                                    {t("open")}
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                                                    <SubjectEdit subjectId={s.id}/>
-                                                </DropdownMenuItem>
-                                                <DropdownMenuSeparator />
-                                                <DropdownMenuItem
-                                                    key="delete"
-                                                    variant="destructive"
-                                                    onClick={() => onDelete(s.id)}
-                                                >
-                                                    {t("delete")}
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </CardAction>
-                                </CardHeader>
-
-                                <CardContent className="px-4 pb-4 text-sm text-muted-foreground"></CardContent>
-                            </Card>
-                        </Link>
+                        <SubjectCard key={s.id} id={s.id} color={s.color} name={s.name} />
                     ))}
                 </div>
             )}

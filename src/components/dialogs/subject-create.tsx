@@ -9,8 +9,13 @@ import { Label } from "../ui/label";
 import ColorSelector from "../ui/color-selector";
 import {Plus} from "lucide-react";
 import {useTranslations} from "next-intl";
+import router from "next/router";
 
-export function SubjectCreate() {
+interface SubjectCreateProps {
+    button?: "small" | "big";
+}
+
+export function SubjectCreate({button}: SubjectCreateProps) {
     const { createSubject } = useSubjects();
     const [open, setOpen] = React.useState(false);
     const [name, setName] = React.useState("")
@@ -26,7 +31,13 @@ export function SubjectCreate() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Plus className="h-3 w-3"/>
+                {button === "big" ?
+                    <Button className="gap-2">
+                        <Plus className="h-4 w-4"/>
+                        {t("create_button")}
+                    </Button> :
+                    <Plus className="h-3 w-3"/>
+                }
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
