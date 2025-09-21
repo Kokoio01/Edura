@@ -29,14 +29,10 @@
     "terms_pp": "Privacy Policy"
   },
   "SubjectsPage": {
-    "confirm_delete": "Delete this subject?",
     "load_error": "Error loading subjects.",
     "retry": "Try again",
     "title": "Subjects",
-    "empty": "No subjects yet.",
-    "actions": "Actions",
-    "open": "Open",
-    "delete": "Delete"
+    "empty": "No subjects yet."
   },
   "SubjectPage": {
     "invalid_id": "Invalid subject ID.",
@@ -46,6 +42,12 @@
     "not_found": "Subject not found.",
     "information": "Information",
     "created": "Created"
+  },
+  "SubjectCard": {
+    "confirm_delete": "Delete this subject?",
+    "actions": "Actions",
+    "open": "Open",
+    "delete": "Delete"
   },
   "UsersTable": {
     "search_placeholder": "Search users...",
@@ -91,26 +93,42 @@
     "save": "Save"
   },
   "HomeworkTable": {
-    "completed": "Done",
-    "toggle_complete_aria": "Toggle complete",
+    "completed": "Completed",
+    "subject": "Subject",
     "title": "Title",
-    "due": "Due",
-    "open_menu_sr": "Open menu",
-    "actions": "Actions",
-    "copy_id": "Copy ID",
-    "delete": "Delete",
-    "filter_title_placeholder": "Filter title...",
-    "status_label": "Task status",
-    "status_all": "All tasks",
+    "due": "Due Date",
+    "toggle_complete_aria": "Toggle completion status",
+    "filter_title_placeholder": "Filter by title...",
+    "status_label": "Status Filter",
+    "status_all": "All",
     "status_pending": "Pending",
     "status_completed": "Completed",
     "loading": "Loading...",
-    "empty": "Nothing here :)",
+    "empty": "No homework found.",
     "previous": "Previous",
     "next": "Next"
   },
+  "HomeworkInfo": {
+    "edit_title": "Edit Homework",
+    "view_title": "Homework Details",
+    "subject": "Subject",
+    "title": "Title",
+    "description": "Description",
+    "due_date": "Due Date",
+    "completed": "Completed",
+    "select_subject": "Select a subject",
+    "no_description": "No description provided",
+    "no_due_date": "No due date set",
+    "delete_confirmation": "Are you sure you want to delete this homework? This action cannot be undone.",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close"
+  },
   "HomeworkCreate": {
     "trigger_create": "Create",
+    "trigger_sidebar_create": "Create homework",
     "title": "Create homework",
     "subject_label": "Subject",
     "subject_placeholder": "Please select…",
@@ -125,6 +143,7 @@
     "home": "Home"
   },
   "SubjectCreate": {
+    "create_button": "Create Subject",
     "title": "Create subject",
     "name_label": "Name",
     "color_label": "Color",
