@@ -18,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import { useSubjects } from "@/hooks/use-subjects";
 import {useTranslations} from "next-intl";
 import { PlusCircle } from "lucide-react";
-import {SidebarMenuButton} from "@/components/ui/sidebar";
+// SidebarMenuButton import removed (unused)
 
 interface HomeworkCreateProps {
     subjectId?: string;

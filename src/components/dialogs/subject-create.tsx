@@ -9,7 +9,7 @@ import { Label } from "../ui/label";
 import ColorSelector from "../ui/color-selector";
 import {Plus} from "lucide-react";
 import {useTranslations} from "next-intl";
-import router from "next/router";
+// router import removed (unused)
 
 interface SubjectCreateProps {
     button?: "small" | "big";

@@ -6,7 +6,7 @@ import {Card, CardContent, CardHeader } from "@/components/ui/card"
 import {Button} from "@/components/ui/button"
 import {Skeleton} from "@/components/ui/skeleton"
 import {HomeworkTable} from "./homework-table"
-import {BookOpen, Calendar, Plus} from "lucide-react"
+import {BookOpen, Calendar} from "lucide-react"
 import {useSession} from "@/lib/auth-client";
 import {useTranslations} from "next-intl";
 import SubjectCard from "./subject-card"

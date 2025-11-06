@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useSubjects } from "@/hooks/use-subjects";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -22,7 +21,7 @@ export function ApikeyCreate({ onSuccess }: ApikeyCreateProps) {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      let newkey = await apiKey.create({ name: desc });
+      const newkey = await apiKey.create({ name: desc });
       setOpen(false);
       setDesc("");
       if (onSuccess) onSuccess(newkey.data?.key ?? "Error");

@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { homework, subjects } from "@/db/schema/app-schema";
+import { homework } from "@/db/schema/app-schema";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 
 // GET: Get homework details
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } | Promise<{ id: string }> }) {
   const apiKey = req.headers.get("x-api-key");
   if (!apiKey) {
     return NextResponse.json({ error: "API key missing" }, { status: 401 });
@@ -17,7 +17,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ error: "Invalid API key" }, { status: 403 });
   }
   const userId = result.key?.userId;
-  const hw = await db.select().from(homework).where(eq(homework.id, params.id)).then(rows => rows[0]);
+  const realParams = await params;
+  const hw = await db.select().from(homework).where(eq(homework.id, realParams.id)).then(rows => rows[0]);
   if (!hw || hw.userId !== userId) {
     return NextResponse.json({ error: "Homework not found or not owned by user" }, { status: 404 });
   }
@@ -25,7 +26,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 // PATCH: Edit homework
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: { id: string } | Promise<{ id: string }> }) {
   const apiKey = req.headers.get("x-api-key");
   if (!apiKey) {
     return NextResponse.json({ error: "API key missing" }, { status: 401 });
@@ -43,11 +44,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
-  const hw = await db.select().from(homework).where(eq(homework.id, params.id)).then(rows => rows[0]);
+  const realParams = await params;
+  const hw = await db.select().from(homework).where(eq(homework.id, realParams.id)).then(rows => rows[0]);
   if (!hw || hw.userId !== userId) {
     return NextResponse.json({ error: "Homework not found or not owned by user" }, { status: 404 });
   }
-  const updateData: any = {};
+  const updateData: Partial<typeof homework.$inferInsert> = {};
   if (data.title) updateData.title = data.title;
   if (data.description !== undefined) updateData.description = data.description;
   if (data.dueDate !== undefined) {
@@ -66,12 +68,12 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
   }
   updateData.updatedAt = new Date();
-  await db.update(homework).set(updateData).where(eq(homework.id, params.id));
+  await db.update(homework).set(updateData).where(eq(homework.id, realParams.id));
   return NextResponse.json({ success: true });
 }
 
 // DELETE: Delete homework
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } | Promise<{ id: string }> }) {
   const apiKey = req.headers.get("x-api-key");
   if (!apiKey) {
     return NextResponse.json({ error: "API key missing" }, { status: 401 });
@@ -83,10 +85,11 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     return NextResponse.json({ error: "Invalid API key" }, { status: 403 });
   }
   const userId = result.key?.userId;
-  const hw = await db.select().from(homework).where(eq(homework.id, params.id)).then(rows => rows[0]);
+  const realParams = await params;
+  const hw = await db.select().from(homework).where(eq(homework.id, realParams.id)).then(rows => rows[0]);
   if (!hw || hw.userId !== userId) {
     return NextResponse.json({ error: "Homework not found or not owned by user" }, { status: 404 });
   }
-  await db.delete(homework).where(eq(homework.id, params.id));
+  await db.delete(homework).where(eq(homework.id, realParams.id));
   return NextResponse.json({ success: true });
 }

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { homework, subjects } from "@/db/schema/app-schema";
 import { auth } from "@/lib/auth";
-import { eq, and, lte, gte } from "drizzle-orm";
+import { eq, lte, gte, and } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
 // GET: List homework for authenticated user. Optional query: subjectId
@@ -28,27 +28,37 @@ export async function GET(req: NextRequest) {
   const dueBefore = searchParams.get("dueBefore");
   const dueAfter = searchParams.get("dueAfter");
   const rawLimit = parseInt(searchParams.get("limit") || "0", 10);
-  const limit = rawLimit > 0 ? rawLimit : "0";
+  const limit = rawLimit > 0 ? rawLimit : 0;
   const offset = parseInt(searchParams.get("offset") || "0", 10) || undefined;
 
-  const conditions: any[] = [eq(homework.userId, userId)];
-  if (subjectId) conditions.push(eq(homework.subjectId, subjectId));
+  // Build an expressions array and use `and(...)` only when we have multiple conditions.
+  const exprs = [eq(homework.userId, userId)];
+  if (subjectId) exprs.push(eq(homework.subjectId, subjectId));
   if (typeof completed === "string") {
     const val = completed.toLowerCase() === "true";
-    conditions.push(eq(homework.completed, val));
+    exprs.push(eq(homework.completed, val));
   }
   if (dueBefore) {
     const d = new Date(dueBefore);
-    if (!isNaN(d.getTime())) conditions.push(lte(homework.dueDate, d));
+    if (!isNaN(d.getTime())) exprs.push(lte(homework.dueDate, d));
   }
   if (dueAfter) {
     const d = new Date(dueAfter);
-    if (!isNaN(d.getTime())) conditions.push(gte(homework.dueDate, d));
+    if (!isNaN(d.getTime())) exprs.push(gte(homework.dueDate, d));
   }
 
-  let q = db.select().from(homework).where(conditions.length === 1 ? conditions[0] : and(...conditions));
+  let q;
+  if (exprs.length === 1) {
+    q = db.select().from(homework).where(exprs[0]);
+  } else {
+    // `and` expects a tuple of expressions; the cast below is used to satisfy the varargs
+    // typing for `and`. Disable the explicit-any rule for this line because Drizzle's
+    // expression types are complex to express here and this is a local server-side route.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    q = db.select().from(homework).where(and(...(exprs as any)));
+  }
   if (typeof offset === "number" && offset > 0) q = q.offset(offset);
-  if (typeof limit === "number") q = q.limit(limit);
+  if (limit > 0) q = q.limit(limit);
   const rows = await q;
 
   return NextResponse.json({ homeworks: rows });

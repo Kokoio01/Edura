@@ -1,12 +1,11 @@
 "use client";
 
-import {useLocale} from "@/hooks/use-locale";
 import {useTranslations} from "next-intl";
 import { Label } from "../ui/label";
 import { ApikeyCreate } from "../dialogs/apikey-create";
 import { apiKey } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
-import { CheckCircle2Icon, Key, Trash } from "lucide-react";
+import { CheckCircle2Icon, Key } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { ApikeyDelete } from "../dialogs/apikey-delete";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
@@ -21,7 +20,7 @@ interface ApiKey {
   userId: string;
   refillInterval: number | null;
   refillAmount: number | null;
-  metadata: Record<string, any> | null;
+    metadata: Record<string, unknown> | null;
   // … weitere Felder, je nach API
 }
 

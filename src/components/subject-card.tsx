@@ -1,6 +1,6 @@
 import React from "react";
 import { MoreVertical } from "lucide-react";
-import { Button } from "./ui/button";
+// Button import removed (unused)
 import Link from "next/link";
 import PatternBackground from "./PatternBackground";
 import { DropdownMenu, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";

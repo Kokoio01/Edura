@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
 		updatedAt: new Date(),
 	};
 
-	await db.insert(subjects).values(newSubject as any);
+		await db.insert(subjects).values(newSubject);
 
 	return NextResponse.json({ subject: newSubject }, { status: 201 });
 }
