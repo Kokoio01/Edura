@@ -1,0 +1,347 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Edura API",
+    "description": "API documentation for the Edura platform.\n\n**Authentication:** Include your API key in the `x-api-key` header.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "/api/v1" }
+  ],
+  "security": [
+    { "ApiKeyAuth": [] }
+  ],
+  "tags": [
+    { "name": "Homework", "description": "Endpoints for managing homework items." },
+    { "name": "Subject", "description": "Endpoints for managing subjects." },
+    { "name": "User", "description": "Endpoints for user and API key information." }
+  ],
+  "paths": {
+    "/homework": {
+      "get": {
+        "tags": ["Homework"],
+        "summary": "List homework for authenticated user",
+        "description": "Returns homework entries for the authenticated user.\n\nOptional query params: `subjectId`, `completed`, `dueBefore`, `dueAfter`, `limit`, `offset`.",
+        "parameters": [
+          { "name": "subjectId", "in": "query", "schema": { "type": "string" } },
+          { "name": "completed", "in": "query", "schema": { "type": "boolean" } },
+          { "name": "dueBefore", "in": "query", "schema": { "type": "string", "format": "date-time" } },
+          { "name": "dueAfter", "in": "query", "schema": { "type": "string", "format": "date-time" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1 } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer", "minimum": 0 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of homework",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HomeworkListResponse" }
+              }
+            }
+          },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or user not found" }
+        }
+      },
+      "post": {
+        "tags": ["Homework"],
+        "summary": "Create a new homework entry",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/HomeworkCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Homework created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HomeworkResponse" }
+              }
+            }
+          },
+          "400": { "description": "Missing or invalid fields" },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner of subject" }
+        }
+      }
+    },
+    "/homework/{id}": {
+      "get": {
+        "tags": ["Homework"],
+        "summary": "Get a specific homework by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Homework found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HomeworkResponse" }
+              }
+            }
+          },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "patch": {
+        "tags": ["Homework"],
+        "summary": "Update a homework",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/HomeworkUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Homework updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HomeworkResponse" }
+              }
+            }
+          },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Homework"],
+        "summary": "Delete a homework",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Homework deleted" },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      }
+    },
+    "/subject": {
+      "get": {
+        "tags": ["Subject"],
+        "summary": "Get all subjects owned by the authenticated user",
+        "responses": {
+          "200": {
+            "description": "List of subjects",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubjectListResponse" }
+              }
+            }
+          },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or user not found" }
+        }
+      },
+      "post": {
+        "tags": ["Subject"],
+        "summary": "Create a new subject",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Subject" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Subject created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Subject" }
+              }
+            }
+          },
+          "400": { "description": "Bad request" },
+          "401": { "description": "API key missing" }
+        }
+      }
+    },
+    "/subject/{id}": {
+      "get": {
+        "tags": ["Subject"],
+        "summary": "Get a subject by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subject found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Subject" }
+              }
+            }
+          },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "patch": {
+        "tags": ["Subject"],
+        "summary": "Update a subject",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "color": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Subject updated" },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Subject"],
+        "summary": "Delete a subject",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Subject deleted" },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key or not owner" },
+          "404": { "description": "Not found" }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get API key / user info",
+        "responses": {
+          "200": { 
+			"description": "API key info",
+			  "content": {
+			  "application/json": {
+				"schema": { "$ref": "#/components/schemas/User" }
+			  }
+			} 
+		 },
+          "401": { "description": "API key missing" },
+          "403": { "description": "Invalid API key" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": { "type": "apiKey", "in": "header", "name": "x-api-key" }
+    },
+    "schemas": {
+      "Subject": {
+        "type": "object",
+        "required": ["id", "name", "color", "userId"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "color": { "type": "string" },
+          "userId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "SubjectListResponse": {
+        "type": "object",
+        "properties": {
+          "subjects": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Subject" }
+          }
+        }
+      },
+      "Homework": {
+        "type": "object",
+        "required": ["id", "title", "subjectId", "userId", "completed"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "dueDate": { "type": ["string", "null"], "format": "date-time" },
+          "completed": { "type": "boolean" },
+          "subjectId": { "type": "string" },
+          "userId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "HomeworkListResponse": {
+        "type": "object",
+        "properties": {
+          "homeworks": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Homework" }
+          }
+        }
+      },
+      "HomeworkCreate": {
+        "type": "object",
+        "required": ["title", "subjectId"],
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "dueDate": { "type": "string", "format": "date-time" },
+          "subjectId": { "type": "string" }
+        }
+      },
+      "HomeworkUpdate": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "dueDate": { "type": ["string", "null"], "format": "date-time" },
+          "completed": { "type": "boolean" }
+        }
+      },
+      "HomeworkResponse": {
+        "type": "object",
+        "properties": {
+          "homework": { "$ref": "#/components/schemas/Homework" }
+        }
+      },
+	  "User": {
+		"type": "object",
+		"properties": {
+		  "id": { "type": "string" },
+		  "userId": { "type": "string" },
+		  "name": { "type": "string" },
+		  "permissions": { 
+				"type": "array",
+				"items": { "type": "string" }
+		  }
+		}
+	  }
+    }
+  }
+}
