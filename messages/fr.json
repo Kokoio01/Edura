@@ -121,6 +121,7 @@
     "no_due_date": "No due date set",
     "delete_confirmation": "Are you sure you want to delete this homework? This action cannot be undone.",
     "save": "Save Changes",
+    "saving": "Saving...",
     "cancel": "Cancel",
     "edit": "Edit",
     "delete": "Delete",
@@ -187,6 +188,18 @@
     "cancel": "Cancel",
     "save": "Save"
   },
+  "ApikeyCreate": {
+    "create_button": "Create new",
+    "title": "Create Api Key",
+    "desc_label": "Description",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "ApikeyDelete": {
+    "title": "Delete API Key",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
   "SettingsPage": {
     "title": "Settings",
     "tab_account": "Account",
@@ -195,6 +208,10 @@
     "account_email_label": "Email",
     "account_password_label": "Password",
     "name_changed_success": "Name changed successfully.",
+    "tab_security": "Security",
+    "title_security": "Security",
+    "security_apikey_label": "API Keys",
+    "success_newkey": "Success! Your API Key has been created",
     "tab_design": "Appearance",
     "title_design": "Choose Your Theme",
     "theme_light": "Light",
