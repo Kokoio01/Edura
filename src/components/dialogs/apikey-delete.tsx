@@ -55,7 +55,9 @@ export function ApikeyDelete({ keyId, onSuccess }: ApikeyDeleteProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Trash className="cursor-pointer" />
+        <Button variant="ghost" aria-label={t("delete")}>
+          <Trash className="cursor-pointer" />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

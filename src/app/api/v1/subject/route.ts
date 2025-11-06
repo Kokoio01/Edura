@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
 	if (!name || !color) return NextResponse.json({ error: "Missing fields: name, color" }, { status: 400 });
 
 	const newSubject = {
-		id: Math.random().toString(36).slice(2, 10),
 		name,
 		color,
 		userId,

@@ -35,6 +35,8 @@ export default function SettingsSecurity() {
             if ('data' in result) {
                 setApikeys(result.data ?? []);
             }
+        }).catch(err => {
+            console.error("Failed to load API keys:", err);
         });
     };
 
@@ -51,7 +53,7 @@ export default function SettingsSecurity() {
             <Alert>
                 <CheckCircle2Icon />
                 <AlertTitle>
-                    {t("sucess_newkey")}
+                    {t("success_newkey")}
                 </AlertTitle>
                 <AlertDescription>{newkey}</AlertDescription>
             </Alert> : null
@@ -59,7 +61,7 @@ export default function SettingsSecurity() {
 
             <div className="flex flex-row items-center justify-between">
                 <div className="grid gap-2">
-                    <Label htmlFor="email">{t("security_apikey_label")}</Label>
+                    <Label>{t("security_apikey_label")}</Label>
                 </div>
                 <ApikeyCreate onSuccess={(NEWKey) => {setNewKey(NEWKey); loadApiKeys();}}/>
             </div>
