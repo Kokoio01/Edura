@@ -156,7 +156,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Subject" }
+              "schema": { "$ref": "#/components/schemas/SubjectCreate" }
             }
           }
         },
@@ -183,12 +183,12 @@
         ],
         "responses": {
           "200": {
-            "description": "Subject found",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/Subject" }
-              }
-            }
+        "description": "Subject found",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/SubjectResponse" }
+          }
+        }
           },
           "401": { "description": "API key missing" },
           "403": { "description": "Invalid API key or not owner" },
@@ -204,19 +204,26 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": { "type": "string" },
-                  "color": { "type": "string" }
-                }
-              }
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+          "name": { "type": "string" },
+          "color": { "type": "string" }
             }
+          }
+        }
           }
         },
         "responses": {
-          "200": { "description": "Subject updated" },
+          "200": {
+        "description": "Subject updated",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/SubjectResponse" }
+          }
+        }
+          },
           "401": { "description": "API key missing" },
           "403": { "description": "Invalid API key or not owner" },
           "404": { "description": "Not found" }
@@ -229,7 +236,14 @@
           { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": { "description": "Subject deleted" },
+          "200": {
+        "description": "Subject deleted",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+          }
+        }
+          },
           "401": { "description": "API key missing" },
           "403": { "description": "Invalid API key or not owner" },
           "404": { "description": "Not found" }
@@ -260,6 +274,14 @@
       "ApiKeyAuth": { "type": "apiKey", "in": "header", "name": "x-api-key" }
     },
     "schemas": {
+      "SubjectCreate": {
+        "type": "object",
+        "required": ["name", "color"],
+        "properties": {
+          "name": { "type": "string" },
+          "color": { "type": "string" }
+        }
+      },
       "Subject": {
         "type": "object",
         "required": ["id", "name", "color", "userId"],

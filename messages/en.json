@@ -211,7 +211,7 @@
     "tab_security": "Security",
     "title_security": "Security",
     "security_apikey_label": "API Keys",
-    "sucess_newkey": "Success! Your API Key has been created",
+    "success_newkey": "Success! Your API Key has been created",
     "tab_design": "Appearance",
     "title_design": "Choose Your Theme",
     "theme_light": "Light",

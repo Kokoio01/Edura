@@ -27,7 +27,8 @@ export async function GET(req: NextRequest) {
   const completed = searchParams.get("completed");
   const dueBefore = searchParams.get("dueBefore");
   const dueAfter = searchParams.get("dueAfter");
-  const limit = parseInt(searchParams.get("limit") || "0", 10) || undefined;
+  const rawLimit = parseInt(searchParams.get("limit") || "0", 10);
+  const limit = rawLimit > 0 ? rawLimit : "0";
   const offset = parseInt(searchParams.get("offset") || "0", 10) || undefined;
 
   const conditions: any[] = [eq(homework.userId, userId)];
@@ -46,8 +47,8 @@ export async function GET(req: NextRequest) {
   }
 
   let q = db.select().from(homework).where(conditions.length === 1 ? conditions[0] : and(...conditions));
-  if (typeof limit === "number") q = q.limit(limit);
   if (typeof offset === "number" && offset > 0) q = q.offset(offset);
+  if (typeof limit === "number") q = q.limit(limit);
   const rows = await q;
 
   return NextResponse.json({ homeworks: rows });
@@ -63,9 +64,6 @@ export async function POST(req: NextRequest) {
   const result = await auth.api.verifyApiKey({
     body: {
       key: apiKey,
-      permissions: {
-        homework: ["create"],
-      },
     },
   });
   if (!result.valid) {
@@ -85,6 +83,10 @@ export async function POST(req: NextRequest) {
   }
 
   const { title, description, dueDate, subjectId } = data;
+  
+  if (dueDate && isNaN(new Date(dueDate).getTime())) {
+    return NextResponse.json({ error: "Invalid dueDate format" }, { status: 400 });
+  }
   if (!title || !subjectId) {
     return NextResponse.json({ error: "Missing required fields: title, subjectId" }, { status: 400 });
   }

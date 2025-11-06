@@ -50,7 +50,17 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   const updateData: any = {};
   if (data.title) updateData.title = data.title;
   if (data.description !== undefined) updateData.description = data.description;
-  if (data.dueDate !== undefined) updateData.dueDate = data.dueDate ? new Date(data.dueDate) : null;
+  if (data.dueDate !== undefined) {
+    if (data.dueDate === null || data.dueDate === "") {
+      updateData.dueDate = null;
+    } else {
+      const parsed = new Date(data.dueDate);
+      if (Number.isNaN(parsed.getTime())) {
+        return NextResponse.json({ error: "Invalid dueDate" }, { status: 400 });
+      }
+      updateData.dueDate = parsed;
+    }
+  }
   if (data.completed !== undefined) updateData.completed = data.completed;
   if (Object.keys(updateData).length === 0) {
     return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
