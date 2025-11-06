@@ -1,18 +1,20 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, Schema } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
-import { user, session, verification, account } from "@/db/schema/auth-schema";
+import { user } from "@/db/schema/auth-schema";
+import * as schema from "@/db/schema/auth-schema";
 import { eq } from "drizzle-orm";
-import { admin } from "better-auth/plugins";
+import { admin, apiKey } from "better-auth/plugins";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
         provider: "pg",
         schema: {
-            user,
-            session,
-            verification,
-            account,
+            user: schema.user,
+            account: schema.account,
+            verification: schema.verification,
+            session: schema.session,
+            apikey: schema.apikey
         },
     }),
     emailAndPassword: {
@@ -20,7 +22,8 @@ export const auth = betterAuth({
         disableSignUp: true,
     },
     plugins: [
-        admin()
+        admin(),
+        apiKey()
     ],
     trustedOrigins: [
         ...(process.env.APP_URL ? [process.env.APP_URL] : [])

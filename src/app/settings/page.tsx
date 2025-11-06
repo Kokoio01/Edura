@@ -1,5 +1,5 @@
 'use client'
-import {Brush, Globe, User, Users} from "lucide-react";
+import {Brush, Lock, Globe, User, Users} from "lucide-react";
 import { useState } from "react";
 import {useTranslations} from "next-intl";
 import SettingsAccount from "@/components/settings/settings-account";
@@ -9,6 +9,7 @@ import {Separator} from "@/components/ui/separator";
 import SettingsLanguage from "@/components/settings/settings-language";
 import SettingsDesign from "@/components/settings/settings-design";
 import AdminUsers from "@/components/settings/admin-users";
+import SettingsSecurity from "@/components/settings/settings-security";
 
 function getInitials(name: string) {
     return name
@@ -49,6 +50,10 @@ export default function SettingsPage() {
                         <User className="size-4"/>
                         <span>{t("tab_account")}</span>
                     </li>
+                    <li className="flex items-center gap-4" onClick={() => setPage("security")}>
+                        <Lock className="size-4"/>
+                        <span>{t("tab_security")}</span>
+                    </li>
                     <li className="flex items-center gap-4" onClick={() => setPage("design")}>
                         <Brush className="size-4"/>
                         <span>{t("tab_design")}</span>
@@ -72,6 +77,8 @@ export default function SettingsPage() {
                         switch (page) {
                             case "account":
                                 return <SettingsAccount/>;
+                            case "security":
+                                return <SettingsSecurity/>;
                             case "design":
                                 return <SettingsDesign/>;
                             case "language":
