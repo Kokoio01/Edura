@@ -31,10 +31,13 @@ RUN chown -R nextjs:nodejs /app/public || true
 COPY entrypoint.sh ./
 COPY drizzle.config.ts ./
 COPY --from=builder /app/src/db/schema ./src/db/schema
+# Copy package.json and package-lock.json so we can install exact runtime deps from the lockfile
+COPY package.json package-lock.json ./
 RUN chmod +x entrypoint.sh
 
-RUN rm package.json
-RUN npm install drizzle-kit drizzle-orm dotenv pg next --omit=dev --omit=optional
+# Install runtime dependencies exactly as in package-lock to avoid version mismatches
+# (avoids pulling newer incompatible versions of Next/React at runtime)
+RUN npm ci --omit=dev --omit=optional
 
 EXPOSE 3000
 USER nextjs

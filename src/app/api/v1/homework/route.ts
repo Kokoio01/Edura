@@ -3,7 +3,6 @@ import { db } from "@/db";
 import { homework, subjects } from "@/db/schema/app-schema";
 import { auth } from "@/lib/auth";
 import { eq, lte, gte, and } from "drizzle-orm";
-import { nanoid } from "nanoid";
 
 // GET: List homework for authenticated user. Optional query: subjectId
 export async function GET(req: NextRequest) {
@@ -108,7 +107,6 @@ export async function POST(req: NextRequest) {
   }
 
   const newHomework = {
-    id: nanoid(),
     title,
     description: description || "",
     dueDate: dueDate ? new Date(dueDate) : null,
