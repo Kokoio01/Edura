@@ -121,7 +121,7 @@
     "no_due_date": "Kein Fälligkeitsdatum gesetzt",
     "delete_confirmation": "Bist du dir sicher, dass du diese Hausaufgabe löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
     "save": "Änderungen speichern",
-    "saving": "Saving...",
+    "saving": "Speichern...",
     "cancel": "Abbrechen",
     "edit": "Bearbeiten",
     "delete": "Löschen",
@@ -189,16 +189,16 @@
     "save": "Speichern"
   },
   "ApikeyCreate": {
-    "create_button": "Create new",
-    "title": "Create Api Key",
-    "desc_label": "Description",
-    "cancel": "Cancel",
-    "save": "Save"
+    "create_button": "Neuen erstellen",
+    "title": "API Schlüssel erstellen",
+    "desc_label": "Beschreibung",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
   },
   "ApikeyDelete": {
-    "title": "Delete API Key",
-    "cancel": "Cancel",
-    "delete": "Delete"
+    "title": "API Schlüssel löschen",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
   },
   "SettingsPage": {
     "title": "Einstellungen",
@@ -208,10 +208,10 @@
     "account_email_label": "Email",
     "account_password_label": "Passwort",
     "name_changed_success": "Name erfolgreich geändert.",
-    "tab_security": "Security",
-    "title_security": "Security",
-    "security_apikey_label": "API Keys",
-    "success_newkey": "Success! Your API Key has been created",
+    "tab_security": "Sicherheit",
+    "title_security": "Sicherheit",
+    "security_apikey_label": "API Schlüssel",
+    "success_newkey": "Erfolg! Dein API Schlüssel wurde erstellt!",
     "tab_design": "Design",
     "title_design": "Wählen Sie Ihr Design",
     "theme_light": "Hell",
