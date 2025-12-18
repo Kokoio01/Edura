@@ -1,15 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 import { apiKey } from "@/lib/auth-client";
 import { Trash } from "lucide-react";
 
 interface ApikeyDeleteProps {
   keyId: string;
-  onSuccess?: () => void; // optionaler Callback nach erfolgreichem Löschen
+  onSuccess?: () => void;
 }
 
 export function ApikeyDelete({ keyId, onSuccess }: ApikeyDeleteProps) {
@@ -43,7 +51,7 @@ export function ApikeyDelete({ keyId, onSuccess }: ApikeyDeleteProps) {
               setError(json.message || "Failed to delete API key");
             }
           },
-        }
+        },
       );
     } catch (err) {
       setLoading(false);
@@ -82,4 +90,3 @@ export function ApikeyDelete({ keyId, onSuccess }: ApikeyDeleteProps) {
     </Dialog>
   );
 }
-

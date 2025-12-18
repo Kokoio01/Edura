@@ -18,7 +18,10 @@ export async function GET(req: NextRequest) {
 
   const userId = result.key?.userId;
   if (typeof userId !== "string") {
-    return NextResponse.json({ error: "User not found for API key" }, { status: 403 });
+    return NextResponse.json(
+      { error: "User not found for API key" },
+      { status: 403 },
+    );
   }
 
   const { searchParams } = new URL(req.url);
@@ -50,11 +53,10 @@ export async function GET(req: NextRequest) {
   if (exprs.length === 1) {
     q = db.select().from(homework).where(exprs[0]);
   } else {
-    // `and` expects a tuple of expressions; the cast below is used to satisfy the varargs
-    // typing for `and`. Disable the explicit-any rule for this line because Drizzle's
-    // expression types are complex to express here and this is a local server-side route.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    q = db.select().from(homework).where(and(...(exprs as any)));
+    q = db
+      .select()
+      .from(homework)
+      .where(and(...(exprs as any)));
   }
   if (typeof offset === "number" && offset > 0) q = q.offset(offset);
   if (limit > 0) q = q.limit(limit);
@@ -81,7 +83,10 @@ export async function POST(req: NextRequest) {
 
   const userId = result.key?.userId;
   if (!userId) {
-    return NextResponse.json({ error: "User not found for API key" }, { status: 403 });
+    return NextResponse.json(
+      { error: "User not found for API key" },
+      { status: 403 },
+    );
   }
 
   let data;
@@ -92,18 +97,31 @@ export async function POST(req: NextRequest) {
   }
 
   const { title, description, dueDate, subjectId } = data;
-  
+
   if (dueDate && isNaN(new Date(dueDate).getTime())) {
-    return NextResponse.json({ error: "Invalid dueDate format" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid dueDate format" },
+      { status: 400 },
+    );
   }
   if (!title || !subjectId) {
-    return NextResponse.json({ error: "Missing required fields: title, subjectId" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Missing required fields: title, subjectId" },
+      { status: 400 },
+    );
   }
 
   // Check subject ownership
-  const subject = await db.select().from(subjects).where(eq(subjects.id, subjectId)).then(r => r[0]);
+  const subject = await db
+    .select()
+    .from(subjects)
+    .where(eq(subjects.id, subjectId))
+    .then((r) => r[0]);
   if (!subject || subject.userId !== userId) {
-    return NextResponse.json({ error: "Subject not found or not owned by user" }, { status: 403 });
+    return NextResponse.json(
+      { error: "Subject not found or not owned by user" },
+      { status: 403 },
+    );
   }
 
   const newHomework = {
