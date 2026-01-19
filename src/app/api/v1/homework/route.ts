@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
     q = db
       .select()
       .from(homework)
-      .where(and(...(exprs as any)));
+      .where(and(...exprs));
   }
   if (typeof offset === "number" && offset > 0) q = q.offset(offset);
   if (limit > 0) q = q.limit(limit);
