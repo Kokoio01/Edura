@@ -11,5 +11,5 @@ window.__RUNTIME_CONFIG__ = {
 EOF
 
 # Run migrations/push and then start the server
-npx drizzle-kit push
+pnpm dlx drizzle-kit push
 exec node server.js
