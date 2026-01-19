@@ -239,7 +239,6 @@ export function HomeworkInfo({
           </div>
         </div>
 
-        {/* Description */}
         <div className="px-6 py-6 flex-1">
           <div className="min-h-[200px] p-4 border-2 rounded-lg bg-muted/20">
             {isEditing ? (
@@ -263,7 +262,6 @@ export function HomeworkInfo({
           </div>
         </div>
 
-        {/* Footer Actions */}
         <div className="px-6 py-4 border-t bg-muted/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

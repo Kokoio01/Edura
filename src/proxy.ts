@@ -15,5 +15,4 @@ export async function proxy(req: NextRequest) {
 }
 export const config = {
   matcher: ["/dashboard/:path*", "/subject/:path*", "/settings/:path*"],
-  runtime: "nodejs",
 };

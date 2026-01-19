@@ -11,6 +11,7 @@ FROM base AS builder
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN npm install -g pnpm
 RUN pnpm run build
 
 FROM node:20-alpine AS runner
@@ -33,7 +34,9 @@ COPY --from=builder /app/src/db/schema ./src/db/schema
 COPY package.json pnpm-lock.yaml ./
 RUN chmod +x entrypoint.sh
 
+RUN npm install -g pnpm
 RUN pnpm install --prod
+RUN pnpm install drizzle-kit drizzle-orm
 
 EXPOSE 3000
 USER nextjs

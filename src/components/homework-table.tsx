@@ -411,7 +411,6 @@ export function HomeworkTable({
         </div>
       </div>
 
-      {/* Info Dialog */}
       {selectedHomework && (
         <HomeworkInfo
           homework={selectedHomework}
